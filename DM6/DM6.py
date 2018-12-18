@@ -192,22 +192,24 @@ def main():
     print "blade runner p: hf"
     print ""
     while True:
-       rawinput = raw_input("Input PLO Hand: ").lower()
+       rawinput = raw_input("Input Position, PLO Hand: ").lower()
        if rawinput == "quit":
           print "blade runner p: gg"
           print "blade runner p: m8"
           return 
 
-       posinput = raw_input("Position: ").upper()
-       if posinput == "QUIT": return
+      #  posinput = raw_input("Position: ").upper()
+      #  if posinput == "QUIT": return
 
-       while posinput not in ['HJ', 'CO', 'BTN', 'SB', 'BB']:
-          print 'Invalid Position'
-          posinput = raw_input("Position: ").upper()
-          if posinput == "QUIT": return
+      #  while posinput not in ['HJ', 'CO', 'BTN', 'SB', 'BB']:
+      #     print 'Invalid Position'
+      #     posinput = raw_input("Position: ").upper()
+      #     if posinput == "QUIT": return
 
        else:
-            convertedinput = convertinput(rawinput) #take raw input and convert it to a searchable plo hand
+            raw_position = rawinput.split(' ')[0]
+            raw_hand = rawinput.split(' ')[1]
+            convertedinput = convertinput(raw_hand) #take raw input and convert it to a searchable plo hand
             
             if convertedinput == 'not recognized': #error catch
                 print ""
@@ -217,9 +219,9 @@ def main():
 
                 match_dict = match_dataframes(handlist,df_dict)
                 print ""
-                print "--------",convertedinput[0:2]+","+convertedinput[2:4]+","+convertedinput[4:6]+","+convertedinput[6:], "from", posinput, "--------" 
+                print "--------",convertedinput[0:2]+","+convertedinput[2:4]+","+convertedinput[4:6]+","+convertedinput[6:], "from", raw_position, "--------" 
                 print ""
-                positions_dispatcher[posinput](handlist, df_dict)
+                positions_dispatcher[raw_position](handlist, df_dict)
                 print ""
 
 main()        
