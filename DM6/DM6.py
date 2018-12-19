@@ -90,11 +90,22 @@ def BTN(handlist, df_dict):
 def SB(handlist, df_dict):
     matches = match_dataframes(handlist, df_dict)
     SB_Raise = round(matches.get('SB_Raise', 0), 3)
+    SB_Limp = round(matches.get('SB_Limp', 0), 3)
+    SB_Fold = 1 - SB_Raise - SB_Limp
+
+    # r = RNG()
+    # if r < SB_Raise:
+    #   print 'Open ', SB_Raise, " Otherwise: Fold"
+    # else:
+    #   print 'Fold', " Otherwise: Open", SB_Raise
+
+    #create dictionary of possible actions
+    SB_action1 = OrderedDict([("Open",SB_Raise), ("Limp", SB_Limp),("Fold", SB_Fold)]) 
+    print SB_action1
     r = RNG()
-    if r < SB_Raise:
-      print 'Open ', SB_Raise, " Otherwise: Fold"
-    else:
-      print 'Fold', " Otherwise: Open", SB_Raise
+    
+
+
 
 def BB(handlist, df_dict):
     matches = match_dataframes(handlist, df_dict)
