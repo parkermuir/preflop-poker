@@ -110,7 +110,10 @@ positions_dispatcher = {
   'CO': CO,
   'BTN': BTN,
   'SB': SB,
-  'BB': BB
+  'H': HJ,
+  'C': CO,
+  'B': BTN,
+  'S': SB,
 }
 
 def convertinput(userinput):
@@ -192,7 +195,7 @@ def main():
     print "blade runner p: hf"
     print ""
     while True:
-       rawinput = raw_input("Input Position, PLO Hand: ").lower()
+       rawinput = raw_input("Input: ").lower()
        if rawinput == "quit":
           print "blade runner p: gg"
           print "blade runner p: m8"
@@ -215,19 +218,26 @@ def main():
             else:
               raw_position = rawinput.split(' ')[0].upper()
               raw_hand = rawinput.split(' ')[1]
-              
+
+            if raw_position not in positions_dispatcher:
+              print ""
+              print "Invalid position, try again"
+              print ""
+              continue 
+
+
             convertedinput = convertinput(raw_hand) #take raw input and convert it to a searchable plo hand
             
             if convertedinput == 'not recognized': #error catch
                 print ""
-                print "Oops, try again"
+                print "Invalid hand, try again"
                 print ""
                 continue
             else:
                 handlist = my_permutations2(convertedinput)
                 match_dict = match_dataframes(handlist,df_dict)
                 print ""
-                print "--------",convertedinput[0:2]+","+convertedinput[2:4]+","+convertedinput[4:6]+","+convertedinput[6:], "from", raw_position, "--------" 
+                print "--------",convertedinput[0:2]+","+convertedinput[2:4]+","+convertedinput[4:6]+","+convertedinput[6:], "from", positions_dispatcher[raw_position].__name__, "--------" 
                 print ""
                 positions_dispatcher[raw_position](handlist, df_dict)
                 print ""
