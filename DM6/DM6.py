@@ -207,16 +207,24 @@ def main():
       #     if posinput == "QUIT": return
 
        else:
-            raw_position = rawinput.split(' ')[0]
-            raw_hand = rawinput.split(' ')[1]
+            if " " not in rawinput:
+              print ""
+              print "Please enter a position and hand separated by a space"
+              print ""
+              continue
+            else:
+              raw_position = rawinput.split(' ')[0].upper()
+              raw_hand = rawinput.split(' ')[1]
+              
             convertedinput = convertinput(raw_hand) #take raw input and convert it to a searchable plo hand
             
             if convertedinput == 'not recognized': #error catch
                 print ""
                 print "Oops, try again"
+                print ""
+                continue
             else:
                 handlist = my_permutations2(convertedinput)
-
                 match_dict = match_dataframes(handlist,df_dict)
                 print ""
                 print "--------",convertedinput[0:2]+","+convertedinput[2:4]+","+convertedinput[4:6]+","+convertedinput[6:], "from", raw_position, "--------" 
