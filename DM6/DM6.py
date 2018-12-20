@@ -93,19 +93,43 @@ def SB(handlist, df_dict):
     SB_Limp = round(matches.get('SB_Limp', 0), 3)
     SB_Fold = 1 - SB_Raise - SB_Limp
 
-    # r = RNG()
-    # if r < SB_Raise:
-    #   print 'Open ', SB_Raise, " Otherwise: Fold"
-    # else:
-    #   print 'Fold', " Otherwise: Open", SB_Raise
-
     #create dictionary of possible actions
-    SB_action1 = OrderedDict([("Open",SB_Raise), ("Limp", SB_Limp),("Fold", SB_Fold)]) 
-    print SB_action1
+    SB_actions = OrderedDict([("Open",SB_Raise), ("Limp", SB_Limp),("Fold", SB_Fold)]) 
     r = RNG()
-    
 
 
+    for key in SB_actions:
+        #check each action1 to see if its 100, if so, print it
+        if SB_actions[key] > .99:
+            action = key
+            print action
+            break
+        else:
+            #if none are 100, we have a mix strategy and proceed with that
+            action = 'Mix'
+
+    #if none are 100, we have a mix strategy and proceed with that
+    #for a mixed strategy, check if any of the actions are 0 and remove them from the dictionary. at least one should be zero
+    if action == 'Mix':
+      for key in SB_actions:
+          if SB_actions[key] < .01:
+              #print 'debug', SB_actions[key]
+              del SB_actions[key]
+          else:
+              pass
+      #print SB_actions
+      print 'inside SB func'
+      if SB_actions.values()[0] >= r:
+        print SB_actions.keys()[0],SB_actions.values()[0], " Otherwise:",  SB_actions.keys()[1]
+        # action = SB_actions.keys()[0]
+      elif SB_actions.values()[0] < r:
+        print SB_actions.keys()[1],SB_actions.values()[1], " Otherwise:",  SB_actions.keys()[0]
+        # action = SB_actions.keys()[1]
+      else:
+        print 'Fin - this is prob a crack in SB action #1'
+    else:
+      pass
+        
 
 def BB(handlist, df_dict):
     matches = match_dataframes(handlist, df_dict)
