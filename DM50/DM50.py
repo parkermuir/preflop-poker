@@ -129,3 +129,33 @@ def my_permutations2(myp):
     
     return handlist
 
+def main():
+    df_dict = get_dataframes()   
+
+    while True:
+       rawinput = raw_input("Input PLO Hand: ").lower()
+       if rawinput == "quit":
+            print "blade runner p: gg"
+            print "blade runner p: m8"
+            return
+       else:
+            convertedinput = convertinput(rawinput) #take raw input and convert it to a searchable plo hand
+            
+            if convertedinput == 'not recognized': #error catch
+                print ""
+                print "Oops, try again"
+            else:
+                handlist = my_permutations2(convertedinput)
+                match_dict = match_dataframes(handlist,df_dict)
+                print ""
+                print "--------",convertedinput[0:2]+","+convertedinput[2:4]+","+convertedinput[4:6]+","+convertedinput[6:],"--------" 
+                print ""
+                print"SB:"
+                small_blind_new(match_dict)
+                print ""
+                print "BB:"
+                big_blind_new(match_dict)
+                print ""
+
+
+main() 
