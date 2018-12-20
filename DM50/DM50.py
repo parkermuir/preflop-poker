@@ -9,20 +9,13 @@ def get_filenames(path, suffix=".csv"):
     filenames = listdir(path)
     return [filename for filename in filenames if filename.endswith(suffix)]
 
-['50bb_SB_2x.csv', '50bb_SB_2x_4bet.csv', '50bb_SB_2x_Call3bet.csv', '50bb_SB_2x_Fold3bet.csv',
-'50bb_SB_3x.csv', '50bb_SB_3x_4bet.csv', '50bb_SB_3x_Fold3bet.csv', '50bb_SB_Call3bet.csv', '50bb_SB_FoldBTN.csv', '50bb_SB_Limp.csv', '50bb_SB_LimpCall.csv', '50bb_SB_LimpFold.csv']
-
-['50bb_BB_3Bet_2x.csv', '50bb_BB_3Bet_2x_5bet.csv', '50bb_BB_3Bet_2x_Call4bet.csv', '50bb_BB_3Bet_2x_Fold4bet.csv', '50bb_BB_3Bet_3x.csv', '50bb_BB_3bet_3x_5bet.csv', '50bb_BB_3bet_3x_Call4bet.csv', '50bb_BB_3bet_3x_Fold4bet.csv', '50bb_BB_4bet_LRR.csv', '50bb_BB_Call_2x.csv', '50bb_BB_Call_3x.csv', '50bb_BB_Call_LRR.csv', '50bb_BB_CheckLimp.csv', '50bb_BB_Fold_2x.csv', '50bb_BB_Fold_3x.csv', '50bb_BB_Fold_LRR.csv', '50bb_BB_RaiseLimp.csv']
-
-def get_dataframes():
+def get_dataframes(filenames, path):
+    print "loading files from " + path
     #creates a dictionary that holds a dataframe of each csv
-    filenames = ['50bb_BB_3Bet_2x.csv', '50bb_BB_3Bet_2x_5bet.csv', '50bb_BB_3Bet_2x_Call4bet.csv', '50bb_BB_3Bet_2x_Fold4bet.csv', '50bb_BB_3Bet_3x.csv', '50bb_BB_3bet_3x_5bet.csv', '50bb_BB_3bet_3x_Call4bet.csv', '50bb_BB_3bet_3x_Fold4bet.csv', '50bb_BB_4bet_LRR.csv', '50bb_BB_Call_2x.csv', '50bb_BB_Call_3x.csv', '50bb_BB_Call_LRR.csv', '50bb_BB_CheckLimp.csv', '50bb_BB_Fold_2x.csv', '50bb_BB_Fold_3x.csv', '50bb_BB_Fold_LRR.csv', '50bb_BB_RaiseLimp.csv']
-
-    
     actions_dict = {}
     
     for file in filenames:
-        file_df = pd.read_csv("BB" + "/" + file)
+        file_df = pd.read_csv(path + file)
         keep_col = ['Combo', 'Weight']
         file_df = file_df[keep_col]
 
@@ -130,32 +123,36 @@ def my_permutations2(myp):
     return handlist
 
 def main():
-    df_dict = get_dataframes()   
+  sb_files = ['50bb_SB_2x.csv', '50bb_SB_2x_4bet.csv', '50bb_SB_2x_Call3bet.csv', '50bb_SB_2x_Fold3bet.csv','50bb_SB_3x.csv', '50bb_SB_3x_4bet.csv', '50bb_SB_3x_Fold3bet.csv', '50bb_SB_Call3bet.csv', '50bb_SB_FoldBTN.csv', '50bb_SB_Limp.csv', '50bb_SB_LimpCall.csv', '50bb_SB_LimpFold.csv']
+  bb_files = ['50bb_BB_3Bet_2x.csv', '50bb_BB_3Bet_2x_5bet.csv', '50bb_BB_3Bet_2x_Call4bet.csv', '50bb_BB_3Bet_2x_Fold4bet.csv', '50bb_BB_3Bet_3x.csv', '50bb_BB_3bet_3x_5bet.csv', '50bb_BB_3bet_3x_Call4bet.csv', '50bb_BB_3bet_3x_Fold4bet.csv', '50bb_BB_4bet_LRR.csv', '50bb_BB_Call_2x.csv', '50bb_BB_Call_3x.csv', '50bb_BB_Call_LRR.csv', '50bb_BB_CheckLimp.csv', '50bb_BB_Fold_2x.csv', '50bb_BB_Fold_3x.csv', '50bb_BB_Fold_LRR.csv', '50bb_BB_RaiseLimp.csv']
+  sb_dict = get_dataframes(sb_files, "SB/")   
+  bb_dict = get_dataframes(bb_files, "BB/")
 
-    while True:
-       rawinput = raw_input("Input PLO Hand: ").lower()
-       if rawinput == "quit":
-            print "blade runner p: gg"
-            print "blade runner p: m8"
-            return
-       else:
-            convertedinput = convertinput(rawinput) #take raw input and convert it to a searchable plo hand
+  print bb_dict['50bb_BB_3Bet_2x.csv']
+
+    # while True:
+    #    rawinput = raw_input("Input PLO Hand: ").lower()
+    #    if rawinput == "quit":
+    #         print "blade runner p: gg"
+    #         print "blade runner p: m8"
+    #         return
+    #    else:
+    #         convertedinput = convertinput(rawinput) #take raw input and convert it to a searchable plo hand
             
-            if convertedinput == 'not recognized': #error catch
-                print ""
-                print "Oops, try again"
-            else:
-                handlist = my_permutations2(convertedinput)
-                match_dict = match_dataframes(handlist,df_dict)
-                print ""
-                print "--------",convertedinput[0:2]+","+convertedinput[2:4]+","+convertedinput[4:6]+","+convertedinput[6:],"--------" 
-                print ""
-                print"SB:"
-                small_blind_new(match_dict)
-                print ""
-                print "BB:"
-                big_blind_new(match_dict)
-                print ""
-
+    #         if convertedinput == 'not recognized': #error catch
+    #             print ""
+    #             print "Oops, try again"
+    #         else:
+    #             handlist = my_permutations2(convertedinput)
+    #             match_dict = match_dataframes(handlist,df_dict)
+    #             print ""
+    #             print "--------",convertedinput[0:2]+","+convertedinput[2:4]+","+convertedinput[4:6]+","+convertedinput[6:],"--------" 
+    #             print ""
+    #             print"SB:"
+    #             small_blind_new(match_dict)
+    #             print ""
+    #             print "BB:"
+    #             big_blind_new(match_dict)
+    #             print ""
 
 main() 
