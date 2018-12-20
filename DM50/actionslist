@@ -1,0 +1,38 @@
+SB_FoldBTN
+
+SB_LimpFold
+SB_LimpCall
+
+BB_Fold_2x
+BB_Call_2x
+BB_3Bet_2x
+  BB_3Bet_2x_5bet
+  BB_3Bet_2x_Fold4bet
+  BB_3Bet_2x_Call4bet
+
+BB_Fold_3x
+BB_Call_3x
+BB_3Bet_3x
+  BB_3bet_3x_5bet
+  BB_3bet_3x_Fold4bet
+  BB_3bet_3x_Call4bet
+
+BB_CheckLimp
+BB_RaiseLimp
+  BB_Fold_LRR
+  BB_Call_LRR
+  BB_4bet_LRR
+
+SB_Limp
+SB_2x
+  SB_2x_Fold3bet
+  SB_2x_Call3bet
+  SB_2x_4bet
+
+SB_3x
+  SB_3x_Fold3bet
+  SB_3x_Call3bet
+  SB_3x_4bet
+
+
+

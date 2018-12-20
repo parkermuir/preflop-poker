@@ -262,7 +262,7 @@ def main():
                 handlist = get_permutations(convertedinput)
                 match_dict = match_dataframes(handlist,df_dict)
                 print ""
-                print "--------",convertedinput[0:2]+","+convertedinput[2:4]+","+convertedinput[4:6]+","+convertedinput[6:], "from", positions_dispatcher[raw_position].__name__, "--------" 
+                print "--------",convertedinput[0:2]+","+convertedinput[2:4]+","+convertedinput[4:6]+","+convertedinput[6:], "@", positions_dispatcher[raw_position].__name__, "--------" 
                 print ""
                 positions_dispatcher[raw_position](handlist, df_dict)
                 print ""

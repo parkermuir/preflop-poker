@@ -1,3 +1,5 @@
+from __future__ import division
+from itertools import permutations
 from collections import OrderedDict
 #import numpy as np
 import random
@@ -14,29 +16,27 @@ def get_dataframes(filenames, path):
     #creates a dictionary that holds a dataframe of each csv
     actions_dict = {}
     
-    for file in filenames:
-        file_df = pd.read_csv(path + file)
+    for filename in filenames:
+        file_df = pd.read_csv(path + filename)
         keep_col = ['Combo', 'Weight']
         file_df = file_df[keep_col]
 
-        actions_dict[file] = file_df
+        action_name = filename.replace('50bb_',"").replace('.csv',"")
+        actions_dict[action_name] = file_df
     
     return actions_dict
 
-def match_dataframes(handlist,df_dict):
+def match_dataframes(handlist, df_dict):
     #checks the hand list against each dataframe in the dictionary. returns a dictionary of action to take (via csv name) + percentage
     match_dict = {}
     
     for key in df_dict:
         df = df_dict[key]
         for h in handlist:
-            match_df = df[df['Combo']== h]
-            #match_df = match_df.reset_index(drop=True)
+            match_df = df[df['Combo'] == h]
+
             if not match_df.empty:
-                #print key, type(key)        
-                #print "{0:.0f}%".format(match_df.iloc[0,1]*100)#.to_string#(index=False, header=False)
-                key = key.replace('50bb_',"").replace('.csv',"")
-                match_dict[key] =match_df.iloc[0,1] # "{0:.0f}%".format(match_df.iloc[0,1]*100)
+                match_dict[key] = match_df.iloc[0,1]
                 break
             else:
                 next
@@ -108,7 +108,7 @@ def convertinput(userinput):
     return finalhand
 
 
-def my_permutations2(myp):
+def get_permutations(myp):
     
     Card1 = myp[0:2]
     Card2 = myp[2:4]
@@ -123,12 +123,25 @@ def my_permutations2(myp):
     return handlist
 
 def main():
-  sb_files = ['50bb_SB_2x.csv', '50bb_SB_2x_4bet.csv', '50bb_SB_2x_Call3bet.csv', '50bb_SB_2x_Fold3bet.csv','50bb_SB_3x.csv', '50bb_SB_3x_4bet.csv', '50bb_SB_3x_Fold3bet.csv', '50bb_SB_Call3bet.csv', '50bb_SB_FoldBTN.csv', '50bb_SB_Limp.csv', '50bb_SB_LimpCall.csv', '50bb_SB_LimpFold.csv']
+  sb_files = ['50bb_SB_2x.csv', '50bb_SB_2x_4bet.csv', '50bb_SB_2x_Call3bet.csv', '50bb_SB_2x_Fold3bet.csv','50bb_SB_3x.csv', '50bb_SB_3x_4bet.csv', '50bb_SB_3x_Fold3bet.csv', '50bb_SB_3x_Call3bet.csv', '50bb_SB_FoldBTN.csv', '50bb_SB_Limp.csv', '50bb_SB_LimpCall.csv', '50bb_SB_LimpFold.csv']
   bb_files = ['50bb_BB_3Bet_2x.csv', '50bb_BB_3Bet_2x_5bet.csv', '50bb_BB_3Bet_2x_Call4bet.csv', '50bb_BB_3Bet_2x_Fold4bet.csv', '50bb_BB_3Bet_3x.csv', '50bb_BB_3bet_3x_5bet.csv', '50bb_BB_3bet_3x_Call4bet.csv', '50bb_BB_3bet_3x_Fold4bet.csv', '50bb_BB_4bet_LRR.csv', '50bb_BB_Call_2x.csv', '50bb_BB_Call_3x.csv', '50bb_BB_Call_LRR.csv', '50bb_BB_CheckLimp.csv', '50bb_BB_Fold_2x.csv', '50bb_BB_Fold_3x.csv', '50bb_BB_Fold_LRR.csv', '50bb_BB_RaiseLimp.csv']
+  
   sb_dict = get_dataframes(sb_files, "SB/")   
   bb_dict = get_dataframes(bb_files, "BB/")
 
-  print bb_dict['50bb_BB_3Bet_2x.csv']
+  # handlist = get_permutations(convertinput('AAKKd'))
+
+  # match_dict = match_dataframes(handlist, sb_dict)
+  # print match_dict
+
+  sb_actions_list = []
+  for key in sb_dict:
+    print key
+
+  # print bb_actions_list
+ 
+
+  
 
     # while True:
     #    rawinput = raw_input("Input PLO Hand: ").lower()
@@ -143,7 +156,7 @@ def main():
     #             print ""
     #             print "Oops, try again"
     #         else:
-    #             handlist = my_permutations2(convertedinput)
+    #             handlist = get_permutations(convertedinput)
     #             match_dict = match_dataframes(handlist,df_dict)
     #             print ""
     #             print "--------",convertedinput[0:2]+","+convertedinput[2:4]+","+convertedinput[4:6]+","+convertedinput[6:],"--------" 
