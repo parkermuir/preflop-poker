@@ -19,7 +19,6 @@ import pandas as pd
 #     return [filename for filename in filenames if filename.endswith(suffix)]
 
 def get_dataframes():
-    
     #creates a dictionary that holds a dataframe of each csv
     filenames = ['BTN_Raise.csv', 'CO_Raise.csv', 'HJ_Raise.csv', 'SB_Raise.csv', 'SB_Limp.csv']
     
@@ -210,7 +209,7 @@ def convertinput(userinput):
     return finalhand
 
 
-def my_permutations2(myp):
+def get_permutations(myp):
     
     Card1 = myp[0:2]
     Card2 = myp[2:4]
@@ -236,14 +235,6 @@ def main():
           print "blade runner p: m8"
           return 
 
-      #  posinput = raw_input("Position: ").upper()
-      #  if posinput == "QUIT": return
-
-      #  while posinput not in ['HJ', 'CO', 'BTN', 'SB', 'BB']:
-      #     print 'Invalid Position'
-      #     posinput = raw_input("Position: ").upper()
-      #     if posinput == "QUIT": return
-
        else:
             if " " not in rawinput:
               print ""
@@ -260,7 +251,6 @@ def main():
               print ""
               continue 
 
-
             convertedinput = convertinput(raw_hand) #take raw input and convert it to a searchable plo hand
             
             if convertedinput == 'not recognized': #error catch
@@ -269,7 +259,7 @@ def main():
                 print ""
                 continue
             else:
-                handlist = my_permutations2(convertedinput)
+                handlist = get_permutations(convertedinput)
                 match_dict = match_dataframes(handlist,df_dict)
                 print ""
                 print "--------",convertedinput[0:2]+","+convertedinput[2:4]+","+convertedinput[4:6]+","+convertedinput[6:], "from", positions_dispatcher[raw_position].__name__, "--------" 
