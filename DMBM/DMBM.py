@@ -158,7 +158,7 @@ def big_blind_new(match_dict):
 
     #action0 logic - vs a Limp
     #create dictionary of possible action 0s facing a limp
-    BB_action0 = OrderedDict([("Raise Limp",BB_RaiseLimp), ("Check", BBCheckvsLimp)]) 
+    BB_action0 = OrderedDict([("Raise Limp", BB_RaiseLimp), ("Check", BBCheckvsLimp)]) 
     r = RNG()
     
     for key in BB_action0:
@@ -369,7 +369,7 @@ def main():
                 handlist = my_permutations2(convertedinput)
                 match_dict = match_dataframes(handlist,df_dict)
                 print ""
-                print "--------", '[' + convertedinput[0:2] + ' ' + convertedinput[2:4] + ' ' + convertedinput[4:6] + ' ' + convertedinput[6:], "--------" 
+                print "--------", '[' + convertedinput[0:2] + ' ' + convertedinput[2:4] + ' ' + convertedinput[4:6] + ' ' + convertedinput[6:] + ']', "--------" 
                 print ""
                 print"SB:"
                 small_blind_new(match_dict)
