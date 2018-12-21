@@ -1,14 +1,34 @@
 SB_FoldBTN
 
-SB_LimpFold
-SB_LimpCall
+SB_Limp
+  SB_LimpFold
+  SB_LimpCall
+
+SB_2x
+  SB_2x_Fold3bet
+  SB_2x_Call3bet
+  SB_2x_4bet
+
+SB_3x
+  SB_3x_Fold3bet
+  SB_3x_Call3bet
+  SB_3x_4bet
+
+
+
+{'SB_3x_4bet': '0.8209578971884577', 'SB_Limp': '0.015355612900324906', 
+'SB_2x_4bet': '0.16612870729678633', 'SB_3x_Fold3bet': '6.645506216207466e-11', 
+'SB_3x_Call3bet': '0.00015475834558926644', 'SB_2x_Call3bet': '0.006265281920926888', 
+'SB_LimpFold': '1.0816912910795334e-12', 'SB_2x': '0.17137932893399135', 
+'SB_3x': '0.8208471065426095', 'SB_2x_Fold3bet': '4.094746039241429e-10', 
+'SB_FoldBTN': '4.0663072259790653e-10', 'SB_LimpCall': '2.9184975427900552e-08'}
 
 BB_Fold_2x
 BB_Call_2x
 BB_3Bet_2x
-  BB_3Bet_2x_5bet
   BB_3Bet_2x_Fold4bet
   BB_3Bet_2x_Call4bet
+  BB_3Bet_2x_5bet
 
 BB_Fold_3x
 BB_Call_3x
@@ -23,16 +43,6 @@ BB_RaiseLimp
   BB_Call_LRR
   BB_4bet_LRR
 
-SB_Limp
-SB_2x
-  SB_2x_Fold3bet
-  SB_2x_Call3bet
-  SB_2x_4bet
-
-SB_3x
-  SB_3x_Fold3bet
-  SB_3x_Call3bet
-  SB_3x_4bet
 
 
 
