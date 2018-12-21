@@ -55,36 +55,53 @@ def match_dataframes(handlist, df_dict):
 def RNG():
    r = random.randint(1, 100)    
    r = float(r / 100)
-  #  print 'r=' , r
    return r    
 
 
 def HJ(handlist, df_dict):
     matches = match_dataframes(handlist, df_dict)
     HJ_Raise = round(matches.get('HJ_Raise', 0), 3)
-    r = RNG()
-    if r < HJ_Raise:
-      print 'Open ', HJ_Raise, " Otherwise: Fold"
+
+    if HJ_Raise > .99:
+      print 'Open'
+    elif HJ_Raise < .01:
+      print 'Fold'
     else:
-      print 'Fold', " Otherwise: Open", HJ_Raise
+      r = RNG()
+      if r < HJ_Raise:
+        print 'Open ', HJ_Raise, " Otherwise: Fold"
+      else:
+        print 'Fold', " Otherwise: Open", HJ_Raise
 
 def CO(handlist, df_dict):
     matches = match_dataframes(handlist, df_dict)
     CO_Raise = round(matches.get('BTN_Raise', 0), 3)
-    r = RNG()
-    if r < CO_Raise:
-      print 'Open ', CO_Raise, " Otherwise: Fold"
+
+    if CO_Raise > .99:
+      print 'Open'
+    elif CO_Raise < .01:
+      print 'Fold'
     else:
-      print 'Fold', " Otherwise: Open", CO_Raise
+      r = RNG()
+      if r < CO_Raise:
+        print 'Open ', CO_Raise, " Otherwise: Fold"
+      else:
+        print 'Fold', " Otherwise: Open", CO_Raise
 
 def BTN(handlist, df_dict):
     matches = match_dataframes(handlist, df_dict)
     BTN_Raise = round(matches.get('BTN_Raise', 0), 3)
-    r = RNG()
-    if r < BTN_Raise:
-      print 'Open ', BTN_Raise, " Otherwise: Fold"
+
+    if BTN_Raise > .99:
+      print 'Open'
+    elif BTN_Raise < .01:
+      print 'Fold'
     else:
-      print 'Fold', " Otherwise: Open", BTN_Raise
+      r = RNG()
+      if r < BTN_Raise:
+        print 'Open ', BTN_Raise, " Otherwise: Fold"
+      else:
+        print 'Fold', " Otherwise: Open", BTN_Raise
 
 def SB(handlist, df_dict):
     matches = match_dataframes(handlist, df_dict)
@@ -130,14 +147,20 @@ def SB(handlist, df_dict):
       pass
         
 
-def BB(handlist, df_dict):
-    matches = match_dataframes(handlist, df_dict)
-    BB_Raise = round(matches.get('BB_Raise', 0), 3)
-    r = RNG()
-    if r < BB_Raise:
-      print 'Open ', BB_Raise, " Otherwise: Fold"
-    else:
-      print 'Fold', " Otherwise: Open", BB_Raise
+# def BB(handlist, df_dict):
+#     matches = match_dataframes(handlist, df_dict)
+#     BB_Raise = round(matches.get('BB_Raise', 0), 3)
+
+#     if BB_Raise > .99:
+#       print 'Open'
+#     elif BB_Raise < .01:
+#       print 'Fold'
+#     else:
+#       r = RNG()
+#       if r < BB_Raise:
+#         print 'Open ', BB_Raise, " Otherwise: Fold"
+#       else:
+#         print 'Fold', " Otherwise: Open", BB_Raise
 
 positions_dispatcher = {
   'HJ': HJ,
@@ -262,7 +285,7 @@ def main():
                 handlist = get_permutations(convertedinput)
                 match_dict = match_dataframes(handlist,df_dict)
                 print ""
-                print "--------",convertedinput[0:2]+","+convertedinput[2:4]+","+convertedinput[4:6]+","+convertedinput[6:], "@", positions_dispatcher[raw_position].__name__, "--------" 
+                print "--------", '[' + convertedinput[0:2] + ' ' + convertedinput[2:4] + ' ' + convertedinput[4:6] + ' ' + convertedinput[6:] + "] @", positions_dispatcher[raw_position].__name__, "--------" 
                 print ""
                 positions_dispatcher[raw_position](handlist, df_dict)
                 print ""
