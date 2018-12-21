@@ -141,6 +141,10 @@ def first_sb_action(frequencies):
     else:
       action = 'Mix'
   
+  # how to account for 3 different options?
+
+  #how to choose randomly which one it is? helper func?
+
   if action == 'Mix':
     for key in actions:
       if actions[key] < .01:
@@ -150,6 +154,13 @@ def first_sb_action(frequencies):
 
   else:
     pass
+
+  # what to return here? an object with the action
+  # and the other possible actions?
+
+
+# will need to manage for fold3bet/4bet that dont total to 100,
+# based on earlier mix strat
 
 
 def main():
