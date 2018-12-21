@@ -122,32 +122,31 @@ def get_permutations(myp):
     
     return handlist
 
-def small_blind_tree(frequencies):
+def first_sb_action(frequencies):
   print frequencies
-  sb_action_1 = OrderedDict([
+
+  actions = OrderedDict([
     ('2x', frequencies['SB_2x']),
     ('3x', frequencies['SB_3x']),
     ('Limp', frequencies['SB_Limp']),
     ('Fold', frequencies['SB_FoldBTN'])
   ])
 
-  print sb_action_1
+  print actions
 
-  for key in sb_action_1:
-    if sb_action_1[key] > .99:
+  for key in actions:
+    if actions[key] > .99:
       action = key
-      break
+      return action
     else:
       action = 'Mix'
   
   if action == 'Mix':
-    for key in sb_action_1:
-      if sb_action_1[key] < .01:
-       del sb_action_1[key]
+    for key in actions:
+      if actions[key] < .01:
+       del actions[key]
       else:
         pass
-
-
 
   else:
     pass
@@ -160,10 +159,11 @@ def main():
   sb_dict = get_dataframes(sb_files, 'SB/')   
   bb_dict = get_dataframes(bb_files, 'BB/')
 
-  handlist = get_permutations(convertinput('AK74d'))
+  handlist = get_permutations(convertinput('AJ54s'))
+  # AK74d
 
   sb_matches = match_dataframes(handlist, sb_dict)
-  small_blind_tree(sb_matches)
+  first_sb_action(sb_matches)
 
   # sb_actions_list = []
   # for key in sb_dict:
