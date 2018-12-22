@@ -14,7 +14,7 @@ def get_filenames(path, suffix='.csv'):
 def get_dataframes(filenames, path):
     print 'loading files from ' + path
     #creates a dictionary that holds a dataframe of each csv
-    actions_dict = {}
+    possible_actions_dict = {}
     
     for filename in filenames:
         file_df = pd.read_csv(path + filename)
@@ -22,9 +22,9 @@ def get_dataframes(filenames, path):
         file_df = file_df[keep_col]
 
         action_name = filename.replace('50bb_','').replace('.csv','')
-        actions_dict[action_name] = file_df
+        possible_actions_dict[action_name] = file_df
     
-    return actions_dict
+    return possible_actions_dict
 
 def match_dataframes(handlist, df_dict):
     #checks the hand list against each dataframe in the dictionary. returns a dictionary of action to take (via csv name) + percentage
@@ -122,41 +122,54 @@ def get_permutations(myp):
     
     return handlist
 
+def select_action(possible_actions):
+  # select a 'random' action from an action_dict according to their freq
+  print possible_actions
+  selections = {}
+  selections['otherwise'] = []
+
+  for key in possible_actions:
+    if possible_actions[key] > .99:
+      selections['selected'] = (key, possible_actions[key])
+      break
+    elif possible_actions[key] < .01:
+      del possible_actions[key]
+  
+  if 'selected' not in possible_actions:
+    r = RNG()
+    sum = 0
+    for key in possible_actions:
+      
+  else:
+    pass 
+
+
+  print possible_actions
+  print selections
+  # how to account for 3 different options?
+
+
+
+
+
+
+
 def first_sb_action(frequencies):
   print frequencies
 
-  actions = OrderedDict([
+  possible_actions = OrderedDict([
     ('2x', frequencies['SB_2x']),
     ('3x', frequencies['SB_3x']),
     ('Limp', frequencies['SB_Limp']),
     ('Fold', frequencies['SB_FoldBTN'])
   ])
 
-  print actions
+  action_1 = select_action(possible_actions)
+  print action_1
 
-  for key in actions:
-    if actions[key] > .99:
-      action = key
-      return action
-    else:
-      action = 'Mix'
-  
-  # how to account for 3 different options?
-
-  #how to choose randomly which one it is? helper func?
-
-  if action == 'Mix':
-    for key in actions:
-      if actions[key] < .01:
-       del actions[key]
-      else:
-        pass
-
-  else:
-    pass
 
   # what to return here? an object with the action
-  # and the other possible actions?
+  # and the other possible possible_actions?
 
 
 # will need to manage for fold3bet/4bet that dont total to 100,
@@ -176,11 +189,11 @@ def main():
   sb_matches = match_dataframes(handlist, sb_dict)
   first_sb_action(sb_matches)
 
-  # sb_actions_list = []
+  # sb_possible_actions_list = []
   # for key in sb_dict:
   #   print key
 
-  # print bb_actions_list
+  # print bb_possible_actions_list
  
 
   
