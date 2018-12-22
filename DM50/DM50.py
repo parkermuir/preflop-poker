@@ -139,7 +139,12 @@ def select_action(possible_actions):
     r = RNG()
     sum = 0
     for key in possible_actions:
-      
+      sum = sum + possible_actions[key]
+      if r <= sum:
+        selections['selected'] = (key, possible_actions[key])
+      else:
+        pass
+        # add to otherwise
   else:
     pass 
 
