@@ -135,15 +135,18 @@ def select_action(possible_actions):
     elif possible_actions[key] < .01:
       del possible_actions[key]
   
-  if 'selected' not in possible_actions:
+  if 'selected' not in selections:
     r = RNG()
+
     sum = 0
     for key in possible_actions:
       sum = sum + possible_actions[key]
-      if r <= sum:
+      print 'key =', key, 'sum =', sum, 'r =', r
+
+      if r <= sum and 'selected' not in selections:
         selections['selected'] = (key, possible_actions[key])
       else:
-        pass
+        selections['otherwise'].append((key, possible_actions[key]))
         # add to otherwise
   else:
     pass 
@@ -151,6 +154,7 @@ def select_action(possible_actions):
 
   print possible_actions
   print selections
+  return selections
   # how to account for 3 different options?
 
 
@@ -161,6 +165,13 @@ def select_action(possible_actions):
 
 def first_sb_action(frequencies):
   print frequencies
+
+  # possible_actions ={
+  #   '2x': frequencies['SB_2x'],
+  #   '3x': frequencies['SB_3x'],
+  #   'Limp': frequencies['SB_Limp'],
+  #   'Fold': frequencies['SB_FoldBTN']
+  # }
 
   possible_actions = OrderedDict([
     ('2x', frequencies['SB_2x']),
@@ -188,7 +199,7 @@ def main():
   sb_dict = get_dataframes(sb_files, 'SB/')   
   bb_dict = get_dataframes(bb_files, 'BB/')
 
-  handlist = get_permutations(convertinput('AJ54s'))
+  handlist = get_permutations(convertinput('AK74d'))
   # AK74d
 
   sb_matches = match_dataframes(handlist, sb_dict)
