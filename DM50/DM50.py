@@ -151,16 +151,9 @@ def select_action(possible_actions):
   else:
     pass 
 
-
   print possible_actions
   print selections
   return selections
-  # how to account for 3 different options?
-
-
-
-
-
 
 
 def first_sb_action(frequencies):
@@ -180,39 +173,60 @@ def first_sb_action(frequencies):
     ('Fold', frequencies['SB_FoldBTN'])
   ])
 
-  action_1 = select_action(possible_actions)
-  print action_1
+  return select_action(possible_actions)
 
+def sb_after_limp(frequencies):
+  possible_actions =  OrderedDict([
+    ('Fold', frequencies['SB_LimpFold']),
+    ('Call', frequencies['SB_LimpCall']),
+  ])
 
-  # what to return here? an object with the action
-  # and the other possible possible_actions?
+  return select_action(possible_actions)
+
+def sb_after_2x(frequencies):
+  possible_actions = OrderedDict([
+    ('Fold', frequencies['SB_2x_Fold3bet']),
+    ('Call 3bet', frequencies['SB_2x_Call3bet']),
+    ('4bet', frequencies['SB_2x_4bet']),
+  ])
+
+  return select_action(possible_actions)
+
+def sb_after_3x(frequencies):
+  possible_actions = OrderedDict([
+    ('Fold', frequencies['SB_3x_Fold3bet']),
+    ('Call 3bet', frequencies['SB_3x_Call3bet']),
+    ('4bet', frequencies['SB_3x_4bet']),
+  ])
+
+  return select_action(possible_actions)
+
+def sb_tree(frequencies):
+  print first_sb_action(frequencies)
+  print sb_after_limp(frequencies)
+  print sb_after_2x(frequencies)
+  print sb_after_3x(frequencies)
 
 
 # will need to manage for fold3bet/4bet that dont total to 100,
 # based on earlier mix strat
 
+#maybe make an info function with entire tree for hand
+
+
 
 def main():
   sb_files = ['50bb_SB_2x.csv', '50bb_SB_2x_4bet.csv', '50bb_SB_2x_Call3bet.csv', '50bb_SB_2x_Fold3bet.csv','50bb_SB_3x.csv', '50bb_SB_3x_4bet.csv', '50bb_SB_3x_Fold3bet.csv', '50bb_SB_3x_Call3bet.csv', '50bb_SB_FoldBTN.csv', '50bb_SB_Limp.csv', '50bb_SB_LimpCall.csv', '50bb_SB_LimpFold.csv']
-  bb_files = ['50bb_BB_3Bet_2x.csv', '50bb_BB_3Bet_2x_5bet.csv', '50bb_BB_3Bet_2x_Call4bet.csv', '50bb_BB_3Bet_2x_Fold4bet.csv', '50bb_BB_3Bet_3x.csv', '50bb_BB_3bet_3x_5bet.csv', '50bb_BB_3bet_3x_Call4bet.csv', '50bb_BB_3bet_3x_Fold4bet.csv', '50bb_BB_4bet_LRR.csv', '50bb_BB_Call_2x.csv', '50bb_BB_Call_3x.csv', '50bb_BB_Call_LRR.csv', '50bb_BB_CheckLimp.csv', '50bb_BB_Fold_2x.csv', '50bb_BB_Fold_3x.csv', '50bb_BB_Fold_LRR.csv', '50bb_BB_RaiseLimp.csv']
+  # bb_files = ['50bb_BB_3Bet_2x.csv', '50bb_BB_3Bet_2x_5bet.csv', '50bb_BB_3Bet_2x_Call4bet.csv', '50bb_BB_3Bet_2x_Fold4bet.csv', '50bb_BB_3Bet_3x.csv', '50bb_BB_3bet_3x_5bet.csv', '50bb_BB_3bet_3x_Call4bet.csv', '50bb_BB_3bet_3x_Fold4bet.csv', '50bb_BB_4bet_LRR.csv', '50bb_BB_Call_2x.csv', '50bb_BB_Call_3x.csv', '50bb_BB_Call_LRR.csv', '50bb_BB_CheckLimp.csv', '50bb_BB_Fold_2x.csv', '50bb_BB_Fold_3x.csv', '50bb_BB_Fold_LRR.csv', '50bb_BB_RaiseLimp.csv']
   
   sb_dict = get_dataframes(sb_files, 'SB/')   
-  bb_dict = get_dataframes(bb_files, 'BB/')
+  # bb_dict = get_dataframes(bb_files, 'BB/')
 
   handlist = get_permutations(convertinput('AK74d'))
   # AK74d
 
   sb_matches = match_dataframes(handlist, sb_dict)
-  first_sb_action(sb_matches)
-
-  # sb_possible_actions_list = []
-  # for key in sb_dict:
-  #   print key
-
-  # print bb_possible_actions_list
- 
-
-  
+  sb_tree(sb_matches)
 
     # while True:
     #    rawinput = raw_input('Input PLO Hand: ').lower()
