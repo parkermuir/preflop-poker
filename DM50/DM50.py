@@ -124,7 +124,7 @@ def get_permutations(myp):
 
 def select_action(possible_actions):
   # select a 'random' action from an action_dict according to their freq
-  print possible_actions
+  # print possible_actions
   selections = {}
   selections['otherwise'] = []
 
@@ -137,22 +137,29 @@ def select_action(possible_actions):
   
   if 'selected' not in selections:
     r = RNG()
+    r = .9
 
     sum = 0
-    for key in possible_actions:
-      sum = sum + possible_actions[key]
-      print 'key =', key, 'sum =', sum, 'r =', r
+    if len(possible_actions) == 1:
+      # if there is only one possiblity, select it      
+      selections['selected'] = list(possible_actions.items())[0]
+    else:
+      # else go through the possiblities and select according to freq
+      # while putting the non-selected into the otherwise list
+      for key in possible_actions:
+        sum = sum + possible_actions[key]
+        # print 'key =', key, 'sum =', sum, 'r =', r
 
-      if r <= sum and 'selected' not in selections:
-        selections['selected'] = (key, possible_actions[key])
-      else:
-        selections['otherwise'].append((key, possible_actions[key]))
-        # add to otherwise
+        if r <= sum and 'selected' not in selections:
+          selections['selected'] = (key, possible_actions[key])
+        else:
+          selections['otherwise'].append((key, possible_actions[key]))
+          # add to otherwise
   else:
     pass 
 
-  print possible_actions
-  print selections
+  # print possible_actions
+  # print selections
   return selections
 
 
@@ -202,10 +209,23 @@ def sb_after_3x(frequencies):
   return select_action(possible_actions)
 
 def sb_tree(frequencies):
-  print first_sb_action(frequencies)
-  print sb_after_limp(frequencies)
-  print sb_after_2x(frequencies)
-  print sb_after_3x(frequencies)
+
+  selections = first_sb_action(frequencies)
+  print selections
+  first_action = selections['selected'][0]
+
+  if first_action == 'Fold':
+    print 'Fold'
+  elif first_action == 'Limp':
+    print sb_after_limp(frequencies)
+  elif first_action == '2x':
+    print sb_after_2x(frequencies)
+  elif first_action == '3x':
+    print sb_after_3x(frequencies)
+  else:
+    print 'Error'
+
+
 
 
 # will need to manage for fold3bet/4bet that dont total to 100,
