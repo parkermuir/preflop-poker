@@ -162,6 +162,44 @@ def select_action(possible_actions):
   # print selections
   return selections
 
+def get_hand_info(sb_dict, bb_dict):
+
+  print 'SB_FoldBTN', sb_dict['SB_FoldBTN']
+
+  print 'SB_Limp', sb_dict['SB_Limp']
+  print '--SB_LimpFold', sb_dict['SB_LimpFold']
+  print '--SB_LimpCall', sb_dict['SB_LimpCall']
+
+  print 'SB_2x', sb_dict['SB_2x']
+  print '--SB_2x_Fold3bet', sb_dict['SB_2x_Fold3bet']
+  print '--SB_2x_Call3bet', sb_dict['SB_2x_Call3bet']
+  print '--SB_2x_4bet', sb_dict['SB_2x_4bet']
+
+  print 'SB_3x', sb_dict['SB_3x']
+  print '--SB_3x_Fold3bet', sb_dict['SB_3x_Fold3bet']
+  print '--SB_3x_Call3bet', sb_dict['SB_3x_Call3bet']
+  print '--SB_3x_4bet', sb_dict['SB_3x_4bet']
+
+  print 'BB_Fold_2x', bb_dict['BB_Fold_2x']
+  print 'BB_Call_2x', bb_dict['BB_Call_2x']
+  print 'BB_3Bet_2x', bb_dict['BB_3Bet_2x']
+  # print '--BB_3Bet_2x_Fold4bet', bb_dict['BB_3Bet_2x_Fold4bet']
+  print '--BB_3Bet_2x_Call4bet', bb_dict['BB_3Bet_2x_Call4bet']
+  print '--BB_3Bet_2x_5bet', bb_dict['BB_3Bet_2x_5bet']
+
+  print 'BB_Fold_3x', bb_dict['BB_Fold_3x']
+  print 'BB_Call_3x', bb_dict['BB_Call_3x']
+  print 'BB_3Bet_3x', bb_dict['BB_3Bet_3x']
+  print '--BB_3bet_3x_5bet', bb_dict['BB_3bet_3x_5bet']
+  print '--BB_3bet_3x_Fold4bet', bb_dict['BB_3bet_3x_Fold4bet']
+  print '--BB_3bet_3x_Call4bet', bb_dict['BB_3bet_3x_Call4bet']
+
+  print 'BB_CheckLimp', bb_dict['BB_CheckLimp']
+  print 'BB_RaiseLimp', bb_dict['BB_RaiseLimp']
+  print '--BB_Fold_LRR', bb_dict['BB_Fold_LRR']
+  print '--BB_Call_LRR', bb_dict['BB_Call_LRR']
+  print '--BB_4bet_LRR', bb_dict['BB_4bet_LRR']
+
 
 def first_sb_action(frequencies):
   print frequencies
@@ -237,16 +275,21 @@ def sb_tree(frequencies):
 
 def main():
   sb_files = ['50bb_SB_2x.csv', '50bb_SB_2x_4bet.csv', '50bb_SB_2x_Call3bet.csv', '50bb_SB_2x_Fold3bet.csv','50bb_SB_3x.csv', '50bb_SB_3x_4bet.csv', '50bb_SB_3x_Fold3bet.csv', '50bb_SB_3x_Call3bet.csv', '50bb_SB_FoldBTN.csv', '50bb_SB_Limp.csv', '50bb_SB_LimpCall.csv', '50bb_SB_LimpFold.csv']
-  # bb_files = ['50bb_BB_3Bet_2x.csv', '50bb_BB_3Bet_2x_5bet.csv', '50bb_BB_3Bet_2x_Call4bet.csv', '50bb_BB_3Bet_2x_Fold4bet.csv', '50bb_BB_3Bet_3x.csv', '50bb_BB_3bet_3x_5bet.csv', '50bb_BB_3bet_3x_Call4bet.csv', '50bb_BB_3bet_3x_Fold4bet.csv', '50bb_BB_4bet_LRR.csv', '50bb_BB_Call_2x.csv', '50bb_BB_Call_3x.csv', '50bb_BB_Call_LRR.csv', '50bb_BB_CheckLimp.csv', '50bb_BB_Fold_2x.csv', '50bb_BB_Fold_3x.csv', '50bb_BB_Fold_LRR.csv', '50bb_BB_RaiseLimp.csv']
+  bb_files = ['50bb_BB_3Bet_2x.csv', '50bb_BB_3Bet_2x_5bet.csv', '50bb_BB_3Bet_2x_Call4bet.csv', '50bb_BB_3Bet_2x_Fold4bet.csv', '50bb_BB_3Bet_3x.csv', '50bb_BB_3bet_3x_5bet.csv', '50bb_BB_3bet_3x_Call4bet.csv', '50bb_BB_3bet_3x_Fold4bet.csv', '50bb_BB_4bet_LRR.csv', '50bb_BB_Call_2x.csv', '50bb_BB_Call_3x.csv', '50bb_BB_Call_LRR.csv', '50bb_BB_CheckLimp.csv', '50bb_BB_Fold_2x.csv', '50bb_BB_Fold_3x.csv', '50bb_BB_Fold_LRR.csv', '50bb_BB_RaiseLimp.csv']
   
   sb_dict = get_dataframes(sb_files, 'SB/')   
-  # bb_dict = get_dataframes(bb_files, 'BB/')
+  bb_dict = get_dataframes(bb_files, 'BB/')
 
   handlist = get_permutations(convertinput('AK74d'))
   # AK74d
 
   sb_matches = match_dataframes(handlist, sb_dict)
-  sb_tree(sb_matches)
+  bb_matches = match_dataframes(handlist, bb_dict)
+  # sb_tree(sb_matches)
+  print bb_matches
+
+
+  # get_hand_info(sb_matches, bb_matches)
 
     # while True:
     #    rawinput = raw_input('Input PLO Hand: ').lower()
