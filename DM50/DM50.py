@@ -31,10 +31,11 @@ def match_dataframes(handlist, df_dict):
     match_dict = {}
     
     for key in df_dict:
+        print key
         df = df_dict[key]
         for h in handlist:
             match_df = df[df['Combo'] == h]
-
+            print match_df
             if not match_df.empty:
                 match_dict[key] = round(match_df.iloc[0,1], 3)
                 break
@@ -163,37 +164,41 @@ def select_action(possible_actions):
   return selections
 
 def get_hand_info(sb_dict, bb_dict):
+  line = '---------------------------'
 
   print 'SB_FoldBTN', sb_dict['SB_FoldBTN']
-
+  print ''
   print 'SB_Limp', sb_dict['SB_Limp']
   print '--SB_LimpFold', sb_dict['SB_LimpFold']
   print '--SB_LimpCall', sb_dict['SB_LimpCall']
-
+  print line
   print 'SB_2x', sb_dict['SB_2x']
   print '--SB_2x_Fold3bet', sb_dict['SB_2x_Fold3bet']
   print '--SB_2x_Call3bet', sb_dict['SB_2x_Call3bet']
   print '--SB_2x_4bet', sb_dict['SB_2x_4bet']
-
+  print line
   print 'SB_3x', sb_dict['SB_3x']
   print '--SB_3x_Fold3bet', sb_dict['SB_3x_Fold3bet']
   print '--SB_3x_Call3bet', sb_dict['SB_3x_Call3bet']
   print '--SB_3x_4bet', sb_dict['SB_3x_4bet']
-
+  print line
+  print ''
+  print line
   print 'BB_Fold_2x', bb_dict['BB_Fold_2x']
   print 'BB_Call_2x', bb_dict['BB_Call_2x']
+  print ''
   print 'BB_3Bet_2x', bb_dict['BB_3Bet_2x']
-  # print '--BB_3Bet_2x_Fold4bet', bb_dict['BB_3Bet_2x_Fold4bet']
+  print '--BB_3Bet_2x_Fold4bet', bb_dict['BB_3Bet_2x_Fold4bet']
   print '--BB_3Bet_2x_Call4bet', bb_dict['BB_3Bet_2x_Call4bet']
   print '--BB_3Bet_2x_5bet', bb_dict['BB_3Bet_2x_5bet']
-
+  print line
   print 'BB_Fold_3x', bb_dict['BB_Fold_3x']
   print 'BB_Call_3x', bb_dict['BB_Call_3x']
   print 'BB_3Bet_3x', bb_dict['BB_3Bet_3x']
   print '--BB_3bet_3x_5bet', bb_dict['BB_3bet_3x_5bet']
   print '--BB_3bet_3x_Fold4bet', bb_dict['BB_3bet_3x_Fold4bet']
   print '--BB_3bet_3x_Call4bet', bb_dict['BB_3bet_3x_Call4bet']
-
+  print line
   print 'BB_CheckLimp', bb_dict['BB_CheckLimp']
   print 'BB_RaiseLimp', bb_dict['BB_RaiseLimp']
   print '--BB_Fold_LRR', bb_dict['BB_Fold_LRR']
@@ -280,16 +285,16 @@ def main():
   sb_dict = get_dataframes(sb_files, 'SB/')   
   bb_dict = get_dataframes(bb_files, 'BB/')
 
-  handlist = get_permutations(convertinput('AK74d'))
+  handlist = get_permutations(convertinput('AK75l'))
   # AK74d
 
   sb_matches = match_dataframes(handlist, sb_dict)
   bb_matches = match_dataframes(handlist, bb_dict)
   # sb_tree(sb_matches)
-  print bb_matches
+  # print bb_matches
 
 
-  # get_hand_info(sb_matches, bb_matches)
+  get_hand_info(sb_matches, bb_matches)
 
     # while True:
     #    rawinput = raw_input('Input PLO Hand: ').lower()
