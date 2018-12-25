@@ -256,9 +256,17 @@ def sb_tree(frequencies):
   selections = first_sb_action(frequencies)
   print selections
   first_action = selections['selected'][0]
+  print first_action
 
   if first_action == 'Fold':
-    print 'Fold'
+    if len[selections['otherwise'] == 0:
+      print 'Fold'
+    else:
+      mixed_strat = ''
+      for tuple in selections['otherwise']:
+        mixed_strat = mixed_ strat + tuple[0] + ' ' + tuple[1]
+      print 'Fold, Otherwise: ' + mixed_strat      
+
   elif first_action == 'Limp':
     print sb_after_limp(frequencies)
   elif first_action == '2x':
@@ -280,21 +288,21 @@ def sb_tree(frequencies):
 
 def main():
   sb_files = ['50bb_SB_2x.csv', '50bb_SB_2x_4bet.csv', '50bb_SB_2x_Call3bet.csv', '50bb_SB_2x_Fold3bet.csv','50bb_SB_3x.csv', '50bb_SB_3x_4bet.csv', '50bb_SB_3x_Fold3bet.csv', '50bb_SB_3x_Call3bet.csv', '50bb_SB_FoldBTN.csv', '50bb_SB_Limp.csv', '50bb_SB_LimpCall.csv', '50bb_SB_LimpFold.csv']
-  bb_files = ['50bb_BB_3Bet_2x.csv', '50bb_BB_3Bet_2x_5bet.csv', '50bb_BB_3Bet_2x_Call4bet.csv', '50bb_BB_3Bet_2x_Fold4bet.csv', '50bb_BB_3Bet_3x.csv', '50bb_BB_3bet_3x_5bet.csv', '50bb_BB_3bet_3x_Call4bet.csv', '50bb_BB_3bet_3x_Fold4bet.csv', '50bb_BB_4bet_LRR.csv', '50bb_BB_Call_2x.csv', '50bb_BB_Call_3x.csv', '50bb_BB_Call_LRR.csv', '50bb_BB_CheckLimp.csv', '50bb_BB_Fold_2x.csv', '50bb_BB_Fold_3x.csv', '50bb_BB_Fold_LRR.csv', '50bb_BB_RaiseLimp.csv']
+  # bb_files = ['50bb_BB_3Bet_2x.csv', '50bb_BB_3Bet_2x_5bet.csv', '50bb_BB_3Bet_2x_Call4bet.csv', '50bb_BB_3Bet_2x_Fold4bet.csv', '50bb_BB_3Bet_3x.csv', '50bb_BB_3bet_3x_5bet.csv', '50bb_BB_3bet_3x_Call4bet.csv', '50bb_BB_3bet_3x_Fold4bet.csv', '50bb_BB_4bet_LRR.csv', '50bb_BB_Call_2x.csv', '50bb_BB_Call_3x.csv', '50bb_BB_Call_LRR.csv', '50bb_BB_CheckLimp.csv', '50bb_BB_Fold_2x.csv', '50bb_BB_Fold_3x.csv', '50bb_BB_Fold_LRR.csv', '50bb_BB_RaiseLimp.csv']
   
   sb_dict = get_dataframes(sb_files, 'SB/')   
-  bb_dict = get_dataframes(bb_files, 'BB/')
+  # bb_dict = get_dataframes(bb_files, 'BB/')
 
-  handlist = get_permutations(convertinput('AK75l'))
+  handlist = get_permutations(convertinput('A654r'))
   # AK74d
 
   sb_matches = match_dataframes(handlist, sb_dict)
-  bb_matches = match_dataframes(handlist, bb_dict)
-  # sb_tree(sb_matches)
+  # bb_matches = match_dataframes(handlist, bb_dict)
+  sb_tree(sb_matches)
   # print bb_matches
 
 
-  get_hand_info(sb_matches, bb_matches)
+  # get_hand_info(sb_matches, bb_matches)
 
     # while True:
     #    rawinput = raw_input('Input PLO Hand: ').lower()
