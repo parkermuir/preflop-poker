@@ -31,11 +31,9 @@ def match_dataframes(handlist, df_dict):
     match_dict = {}
     
     for key in df_dict:
-        print key
         df = df_dict[key]
         for h in handlist:
             match_df = df[df['Combo'] == h]
-            print match_df
             if not match_df.empty:
                 match_dict[key] = round(match_df.iloc[0,1], 3)
                 break
@@ -173,14 +171,22 @@ def get_hand_info(sb_dict, bb_dict):
   print '--SB_LimpCall', sb_dict['SB_LimpCall']
   print line
   print 'SB_2x', sb_dict['SB_2x']
-  print '--SB_2x_Fold3bet', sb_dict['SB_2x_Fold3bet']
-  print '--SB_2x_Call3bet', sb_dict['SB_2x_Call3bet']
-  print '--SB_2x_4bet', sb_dict['SB_2x_4bet']
+  if 'SB_2x_Fold3bet' in sb_dict.keys():
+    print '--SB_2x_Fold3bet', sb_dict['SB_2x_Fold3bet']
+  if 'SB_2x_Call3bet' in sb_dict.keys():
+    print '--SB_2x_Call3bet', sb_dict['SB_2x_Call3bet']
+  if 'SB_2x_4bet' in sb_dict.keys():
+    print '--SB_2x_4bet', sb_dict['SB_2x_4bet']
+  
   print line
+  
   print 'SB_3x', sb_dict['SB_3x']
-  print '--SB_3x_Fold3bet', sb_dict['SB_3x_Fold3bet']
-  print '--SB_3x_Call3bet', sb_dict['SB_3x_Call3bet']
-  print '--SB_3x_4bet', sb_dict['SB_3x_4bet']
+  if 'SB_3x_Fold3bet' in sb_dict.keys():
+    print '--SB_3x_Fold3bet', sb_dict['SB_3x_Fold3bet']
+  if 'SB_3x_Call3bet' in sb_dict.keys():
+    print '--SB_3x_Call3bet', sb_dict['SB_3x_Call3bet']
+  if 'SB_3x_4bet' in sb_dict.keys():
+    print '--SB_3x_4bet', sb_dict['SB_3x_4bet']
   print line
   print ''
   print line
@@ -188,22 +194,31 @@ def get_hand_info(sb_dict, bb_dict):
   print 'BB_Call_2x', bb_dict['BB_Call_2x']
   print ''
   print 'BB_3Bet_2x', bb_dict['BB_3Bet_2x']
-  print '--BB_3Bet_2x_Fold4bet', bb_dict['BB_3Bet_2x_Fold4bet']
-  print '--BB_3Bet_2x_Call4bet', bb_dict['BB_3Bet_2x_Call4bet']
-  print '--BB_3Bet_2x_5bet', bb_dict['BB_3Bet_2x_5bet']
+  if 'BB_3Bet_2x_Fold4bet' in bb_dict.keys():
+    print '--BB_3Bet_2x_Fold4bet', bb_dict['BB_3Bet_2x_Fold4bet']
+  if 'BB_3Bet_2x_Call4bet' in bb_dict.keys():
+    print '--BB_3Bet_2x_Call4bet', bb_dict['BB_3Bet_2x_Call4bet']
+  if 'BB_3Bet_2x_5bet' in bb_dict.keys():
+    print '--BB_3Bet_2x_5bet', bb_dict['BB_3Bet_2x_5bet']
   print line
   print 'BB_Fold_3x', bb_dict['BB_Fold_3x']
   print 'BB_Call_3x', bb_dict['BB_Call_3x']
   print 'BB_3Bet_3x', bb_dict['BB_3Bet_3x']
-  print '--BB_3bet_3x_5bet', bb_dict['BB_3bet_3x_5bet']
-  print '--BB_3bet_3x_Fold4bet', bb_dict['BB_3bet_3x_Fold4bet']
-  print '--BB_3bet_3x_Call4bet', bb_dict['BB_3bet_3x_Call4bet']
+  if 'BB_3bet_3x_5bet' in bb_dict.keys():
+    print '--BB_3bet_3x_5bet', bb_dict['BB_3bet_3x_5bet']
+  if 'BB_3bet_3x_Fold4bet' in bb_dict.keys():
+    print '--BB_3bet_3x_Fold4bet', bb_dict['BB_3bet_3x_Fold4bet']
+  if 'BB_3bet_3x_Call4bet' in bb_dict.keys():
+    print '--BB_3bet_3x_Call4bet', bb_dict['BB_3bet_3x_Call4bet']
   print line
   print 'BB_CheckLimp', bb_dict['BB_CheckLimp']
   print 'BB_RaiseLimp', bb_dict['BB_RaiseLimp']
-  print '--BB_Fold_LRR', bb_dict['BB_Fold_LRR']
-  print '--BB_Call_LRR', bb_dict['BB_Call_LRR']
-  print '--BB_4bet_LRR', bb_dict['BB_4bet_LRR']
+  if 'BB_Fold_LRR' in bb_dict.keys():
+    print '--BB_Fold_LRR', bb_dict['BB_Fold_LRR']
+  if 'BB_Call_LRR' in bb_dict.keys():
+    print '--BB_Call_LRR', bb_dict['BB_Call_LRR']
+  if 'BB_4bet_LRR' in bb_dict.keys():
+    print '--BB_4bet_LRR', bb_dict['BB_4bet_LRR']
 
 
 def first_sb_action(frequencies):
@@ -259,13 +274,13 @@ def sb_tree(frequencies):
   print first_action
 
   if first_action == 'Fold':
-    if len[selections['otherwise'] == 0:
+    if len(selections['otherwise']) == 0:
       print 'Fold'
     else:
       mixed_strat = ''
       for tuple in selections['otherwise']:
-        mixed_strat = mixed_ strat + tuple[0] + ' ' + tuple[1]
-      print 'Fold, Otherwise: ' + mixed_strat      
+        mixed_strat = mixed_strat + tuple[0] + ' ' + tuple[1].stringify()
+        print 'Fold, Otherwise: ' + mixed_strat      
 
   elif first_action == 'Limp':
     print sb_after_limp(frequencies)
@@ -288,21 +303,22 @@ def sb_tree(frequencies):
 
 def main():
   sb_files = ['50bb_SB_2x.csv', '50bb_SB_2x_4bet.csv', '50bb_SB_2x_Call3bet.csv', '50bb_SB_2x_Fold3bet.csv','50bb_SB_3x.csv', '50bb_SB_3x_4bet.csv', '50bb_SB_3x_Fold3bet.csv', '50bb_SB_3x_Call3bet.csv', '50bb_SB_FoldBTN.csv', '50bb_SB_Limp.csv', '50bb_SB_LimpCall.csv', '50bb_SB_LimpFold.csv']
-  # bb_files = ['50bb_BB_3Bet_2x.csv', '50bb_BB_3Bet_2x_5bet.csv', '50bb_BB_3Bet_2x_Call4bet.csv', '50bb_BB_3Bet_2x_Fold4bet.csv', '50bb_BB_3Bet_3x.csv', '50bb_BB_3bet_3x_5bet.csv', '50bb_BB_3bet_3x_Call4bet.csv', '50bb_BB_3bet_3x_Fold4bet.csv', '50bb_BB_4bet_LRR.csv', '50bb_BB_Call_2x.csv', '50bb_BB_Call_3x.csv', '50bb_BB_Call_LRR.csv', '50bb_BB_CheckLimp.csv', '50bb_BB_Fold_2x.csv', '50bb_BB_Fold_3x.csv', '50bb_BB_Fold_LRR.csv', '50bb_BB_RaiseLimp.csv']
+  bb_files = ['50bb_BB_3Bet_2x.csv', '50bb_BB_3Bet_2x_5bet.csv', '50bb_BB_3Bet_2x_Call4bet.csv', '50bb_BB_3Bet_2x_Fold4bet.csv', '50bb_BB_3Bet_3x.csv', '50bb_BB_3bet_3x_5bet.csv', '50bb_BB_3bet_3x_Call4bet.csv', '50bb_BB_3bet_3x_Fold4bet.csv', '50bb_BB_4bet_LRR.csv', '50bb_BB_Call_2x.csv', '50bb_BB_Call_3x.csv', '50bb_BB_Call_LRR.csv', '50bb_BB_CheckLimp.csv', '50bb_BB_Fold_2x.csv', '50bb_BB_Fold_3x.csv', '50bb_BB_Fold_LRR.csv', '50bb_BB_RaiseLimp.csv']
   
   sb_dict = get_dataframes(sb_files, 'SB/')   
-  # bb_dict = get_dataframes(bb_files, 'BB/')
+  bb_dict = get_dataframes(bb_files, 'BB/')
 
-  handlist = get_permutations(convertinput('A654r'))
+  convertedinput = convertinput('AK74d')
+  handlist = get_permutations(convertedinput)
   # AK74d
 
   sb_matches = match_dataframes(handlist, sb_dict)
-  # bb_matches = match_dataframes(handlist, bb_dict)
-  sb_tree(sb_matches)
+  bb_matches = match_dataframes(handlist, bb_dict)
+  # sb_tree(sb_matches)
   # print bb_matches
 
-
-  # get_hand_info(sb_matches, bb_matches)
+  print "--------", '[' + convertedinput[0:2] + ' ' + convertedinput[2:4] + ' ' + convertedinput[4:6] + ' ' + convertedinput[6:] + ']', "--------"
+  get_hand_info(sb_matches, bb_matches)
 
     # while True:
     #    rawinput = raw_input('Input PLO Hand: ').lower()
