@@ -82,6 +82,8 @@ def convertinput(userinput):
                 finalhand = '%sd%sh%sh%sc' % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
             elif input4 == 'l':
                 finalhand = '%ss%sc%sh%sh' % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
+            elif input4 == 'z':
+                finalhand = '%ss%sh%sh%sh' % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
         else: #else if the first two aren't a pair, then do the suiting as below
                 if input4 == 's':
                     finalhand = '%sh%sh%sd%sc' % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
@@ -97,6 +99,8 @@ def convertinput(userinput):
                     finalhand = '%sd%sh%sh%sc' % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
                 elif input4 == 'l':
                     finalhand = '%ss%sc%sh%sh' % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
+                elif input4 == 'z':
+                    finalhand = '%ss%sh%sh%sh' % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
                 else:
                     finalhand = 'not recognized'
     #if its an 8 character input don't modify it other than the capitalization
@@ -163,6 +167,8 @@ def get_hand_info(sb_dict, bb_dict):
   print '--BB_Fold_LRR', bb_dict['BB_Fold_LRR']
   print '--BB_Call_LRR', bb_dict['BB_Call_LRR']
   print '--BB_4bet_LRR', bb_dict['BB_4bet_LRR']
+  print line
+  print ''
 
 def select_action(possible_actions):
   # select a 'random' action from an action_dict according to their freq
@@ -296,9 +302,9 @@ def main():
         print 'blade runner p: gg'
         print 'blade runner p: m8'
         return
-      if rawinput[0:4] == 'info':
+      elif rawinput[0:4] == 'info':
         infoRequest = True
-        convertedinput = convertinput(rawinput[4:9])
+        convertedinput = convertinput(rawinput[5:9])
       else:
         convertedinput = convertinput(rawinput) #take raw input and convert it to a searchable plo hand
 
@@ -324,17 +330,19 @@ def main():
         if action not in bb_matches.keys():
           bb_matches[action] = 0.0
 
-      if infoRequest == True:
-        get_hand_info(sb_matches, bb_matches)
-        continue
-
       print ''
       print "--------", '[' + convertedinput[0:2] + ' ' + convertedinput[2:4] + ' ' + convertedinput[4:6] + ' ' + convertedinput[6:] + ']', "--------"
       print ''
-      sb_tree(sb_matches)
-      print ''
-      print 'BB:'
-      # bb_tree(bb_matches)
-      print ''
+
+      if infoRequest == True:
+        get_hand_info(sb_matches, bb_matches)
+      else:
+        sb_tree(sb_matches)
+        print ''
+        print 'BB:'
+        # bb_tree(bb_matches)
+        print ''
+
+
 
 main() 
