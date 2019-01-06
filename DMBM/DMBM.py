@@ -276,10 +276,10 @@ def RNG():
    return r    
     
 def convertinput(userinput):
-    finalhand = "not recognized" 
+    finalhand = 'not recognized' 
     
     if (len(userinput) > 8 or len(userinput) < 4):
-        finalhand = "not recognized" 
+        finalhand = 'not recognized' 
         pass
     else:
         input0 = userinput[0:1]
@@ -292,44 +292,48 @@ def convertinput(userinput):
         input7 = userinput[7:8]
 
     if len(userinput) == 4:
-        finalhand = "%sd%ss%sh%sc" % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
+        finalhand = '%sd%ss%sh%sc' % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
     elif (len(userinput) == 5 or len(userinput) == 6):
     #for 5 or 6 character entries only
         if input0 == input1:  #check if first two characters are a pair and do the suiting this way
-            if input4 == "s":
-                finalhand = "%sc%sh%sh%sd" % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
-            elif input4 == "d":
-                finalhand = "%sh%ss%sh%ss" % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
-            elif input4 == "r":
-                finalhand = "%sd%ss%sh%sc" % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
-            elif input4 == "t":
-                finalhand = "%sc%sd%sd%sd" % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
-            elif input4 == "m":
-                finalhand = "%sd%sh%sh%sc" % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
-            elif input4 == "l":
-                finalhand = "%ss%sc%sh%sh" % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
+            if input4 == 's':
+                finalhand = '%sc%sh%sh%sd' % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
+            elif input4 == 'd':
+                finalhand = '%sh%ss%sh%ss' % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
+            elif input4 == 'r':
+                finalhand = '%sd%ss%sh%sc' % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
+            elif input4 == 't':
+                finalhand = '%sc%sd%sd%sd' % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
+            elif input4 == 'm':
+                finalhand = '%sd%sh%sh%sc' % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
+            elif input4 == 'l':
+                finalhand = '%ss%sc%sh%sh' % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
+            elif input4 == 'z':
+                finalhand = '%ss%sh%sh%sh' % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
         else: #else if the first two aren't a pair, then do the suiting as below
-                if input4 == "s":
-                    finalhand = "%sh%sh%sd%sc" % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
-                elif input4 == "d":
-                    finalhand = "%sh%sh%ss%ss" % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
-                elif input4 == "t":
-                    finalhand = "%sd%sd%sd%sc" % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
-                elif input4 == "q":
-                    finalhand = "%sh%sh%sh%sh" % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
-                elif input4 == "r":
-                    finalhand = "%sd%ss%sh%sc" % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
-                elif input4 == "m":
-                    finalhand = "%sd%sh%sh%sc" % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
-                elif input4 == "l":
-                    finalhand = "%ss%sc%sh%sh" % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
+                if input4 == 's':
+                    finalhand = '%sh%sh%sd%sc' % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
+                elif input4 == 'd':
+                    finalhand = '%sh%sh%ss%ss' % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
+                elif input4 == 't':
+                    finalhand = '%sd%sd%sd%sc' % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
+                elif input4 == 'q':
+                    finalhand = '%sh%sh%sh%sh' % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
+                elif input4 == 'r':
+                    finalhand = '%sd%ss%sh%sc' % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
+                elif input4 == 'm':
+                    finalhand = '%sd%sh%sh%sc' % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
+                elif input4 == 'l':
+                    finalhand = '%ss%sc%sh%sh' % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
+                elif input4 == 'z':
+                    finalhand = '%ss%sh%sh%sh' % (input0.upper(), input1.upper(), input2.upper(), input3.upper())
                 else:
-                    finalhand = "not recognized"
+                    finalhand = 'not recognized'
     #if its an 8 character input don't modify it other than the capitalization
     elif len(userinput) == 8:
-            finalhand = "%s%s%s%s%s%s%s%s" % (input0.upper(), input1.lower(), input2.upper(), input3.lower(), input4.upper(), input5.lower(), input6.upper(), input7.lower())
+            finalhand = '%s%s%s%s%s%s%s%s' % (input0.upper(), input1.lower(), input2.upper(), input3.lower(), input4.upper(), input5.lower(), input6.upper(), input7.lower())
     else:
-            finalhand = "not recognized"
+            finalhand = 'not recognized'
 
     return finalhand
 
