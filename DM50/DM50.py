@@ -41,13 +41,6 @@ def match_dataframes(handlist, df_dict):
             else:
                 next
     
-    # all_sb = ['SB_FoldBTN', 'SB_Limp', 'SB_LimpFold', 'SB_LimpCall', 'SB_2x', 'SB_2x_Fold3bet', 'SB_2x_Call3bet', 'SB_2x_4bet', 'SB_3x', 'SB_3x_Fold3bet', 'SB_3x_Call3bet', 'SB_3x_4bet']
-
-    # for action in all_sb:
-    #   if action not in match_dict.keys():
-    #     match_dict[action] = 0
-
-    print match_dict
     return match_dict  
 
 def RNG():
@@ -138,22 +131,16 @@ def get_hand_info(sb_dict, bb_dict):
   print '--SB_LimpCall', sb_dict['SB_LimpCall']
   print line
   print 'SB_2x', sb_dict['SB_2x']
-  if 'SB_2x_Fold3bet' in sb_dict.keys():
-    print '--SB_2x_Fold3bet', sb_dict['SB_2x_Fold3bet']
-  if 'SB_2x_Call3bet' in sb_dict.keys():
-    print '--SB_2x_Call3bet', sb_dict['SB_2x_Call3bet']
-  if 'SB_2x_4bet' in sb_dict.keys():
-    print '--SB_2x_4bet', sb_dict['SB_2x_4bet']
+  print '--SB_2x_Fold3bet', sb_dict['SB_2x_Fold3bet']
+  print '--SB_2x_Call3bet', sb_dict['SB_2x_Call3bet']
+  print '--SB_2x_4bet', sb_dict['SB_2x_4bet']
   
   print line
   
   print 'SB_3x', sb_dict['SB_3x']
-  if 'SB_3x_Fold3bet' in sb_dict.keys():
-    print '--SB_3x_Fold3bet', sb_dict['SB_3x_Fold3bet']
-  if 'SB_3x_Call3bet' in sb_dict.keys():
-    print '--SB_3x_Call3bet', sb_dict['SB_3x_Call3bet']
-  if 'SB_3x_4bet' in sb_dict.keys():
-    print '--SB_3x_4bet', sb_dict['SB_3x_4bet']
+  print '--SB_3x_Fold3bet', sb_dict['SB_3x_Fold3bet']
+  print '--SB_3x_Call3bet', sb_dict['SB_3x_Call3bet']
+  print '--SB_3x_4bet', sb_dict['SB_3x_4bet']
   print line
   print ''
   print line
@@ -161,31 +148,22 @@ def get_hand_info(sb_dict, bb_dict):
   print 'BB_Call_2x', bb_dict['BB_Call_2x']
   print ''
   print 'BB_3Bet_2x', bb_dict['BB_3Bet_2x']
-  if 'BB_3Bet_2x_Fold4bet' in bb_dict.keys():
-    print '--BB_3Bet_2x_Fold4bet', bb_dict['BB_3Bet_2x_Fold4bet']
-  if 'BB_3Bet_2x_Call4bet' in bb_dict.keys():
-    print '--BB_3Bet_2x_Call4bet', bb_dict['BB_3Bet_2x_Call4bet']
-  if 'BB_3Bet_2x_5bet' in bb_dict.keys():
-    print '--BB_3Bet_2x_5bet', bb_dict['BB_3Bet_2x_5bet']
+  print '--BB_3Bet_2x_Fold4bet', bb_dict['BB_3Bet_2x_Fold4bet']
+  print '--BB_3Bet_2x_Call4bet', bb_dict['BB_3Bet_2x_Call4bet']
+  print '--BB_3Bet_2x_5bet', bb_dict['BB_3Bet_2x_5bet']
   print line
   print 'BB_Fold_3x', bb_dict['BB_Fold_3x']
   print 'BB_Call_3x', bb_dict['BB_Call_3x']
   print 'BB_3Bet_3x', bb_dict['BB_3Bet_3x']
-  if 'BB_3bet_3x_5bet' in bb_dict.keys():
-    print '--BB_3bet_3x_5bet', bb_dict['BB_3bet_3x_5bet']
-  if 'BB_3bet_3x_Fold4bet' in bb_dict.keys():
-    print '--BB_3bet_3x_Fold4bet', bb_dict['BB_3bet_3x_Fold4bet']
-  if 'BB_3bet_3x_Call4bet' in bb_dict.keys():
-    print '--BB_3bet_3x_Call4bet', bb_dict['BB_3bet_3x_Call4bet']
+  print '--BB_3bet_3x_5bet', bb_dict['BB_3bet_3x_5bet']
+  print '--BB_3bet_3x_Fold4bet', bb_dict['BB_3bet_3x_Fold4bet']
+  print '--BB_3bet_3x_Call4bet', bb_dict['BB_3bet_3x_Call4bet']
   print line
   print 'BB_CheckLimp', bb_dict['BB_CheckLimp']
   print 'BB_RaiseLimp', bb_dict['BB_RaiseLimp']
-  if 'BB_Fold_LRR' in bb_dict.keys():
-    print '--BB_Fold_LRR', bb_dict['BB_Fold_LRR']
-  if 'BB_Call_LRR' in bb_dict.keys():
-    print '--BB_Call_LRR', bb_dict['BB_Call_LRR']
-  if 'BB_4bet_LRR' in bb_dict.keys():
-    print '--BB_4bet_LRR', bb_dict['BB_4bet_LRR']
+  print '--BB_Fold_LRR', bb_dict['BB_Fold_LRR']
+  print '--BB_Call_LRR', bb_dict['BB_Call_LRR']
+  print '--BB_4bet_LRR', bb_dict['BB_4bet_LRR']
 
 def select_action(possible_actions):
   # select a 'random' action from an action_dict according to their freq
@@ -223,8 +201,7 @@ def select_action(possible_actions):
   else:
     pass 
 
-  # print possible_actions
-  print selections
+  # print selections
   return selections
 
 def first_sb_action(frequencies):
