@@ -123,7 +123,6 @@ def get_permutations(myp):
 
 def get_hand_info(sb_dict, bb_dict):
   line = '---------------------------'
-
   print 'SB_FoldBTN', sb_dict['SB_FoldBTN']
   print ''
   print 'SB_Limp', sb_dict['SB_Limp']
@@ -291,42 +290,51 @@ def main():
 
   while True:
       rawinput = raw_input('Input PLO Hand: ').lower()
+      infoRequest = False
+
       if rawinput == 'quit':
-          print 'blade runner p: gg'
-          print 'blade runner p: m8'
-          return
+        print 'blade runner p: gg'
+        print 'blade runner p: m8'
+        return
+      if rawinput[0:4] == 'info':
+        infoRequest = True
+        convertedinput = convertinput(rawinput[4:9])
       else:
-          convertedinput = convertinput(rawinput) #take raw input and convert it to a searchable plo hand
-          
-          if convertedinput == 'not recognized': #error catch
-              print ''
-              print 'Oops, try again'
-          else:
-              handlist = get_permutations(convertedinput)
+        convertedinput = convertinput(rawinput) #take raw input and convert it to a searchable plo hand
 
-              #create dictionaries of matches and fill in missing matches with 0 freq
-              sb_matches = match_dataframes(handlist, sb_dict)
+      if convertedinput == 'not recognized': #error catch
+        print ''
+        print 'Oops, try again'
+        continue
 
-              for filename in sb_files:
-                action = filename.replace('50bb_','').replace('.csv','')
-                if action not in sb_matches.keys():
-                  sb_matches[action] = 0.0
+      handlist = get_permutations(convertedinput)
 
-              bb_matches = match_dataframes(handlist, bb_dict)
+      #create dictionaries of matches and fill in missing matches with 0 freq
+      sb_matches = match_dataframes(handlist, sb_dict)
 
-              for filename in bb_files:
-                action = filename.replace('50bb_','').replace('.csv','')
-                if action not in bb_matches.keys():
-                  bb_matches[action] = 0.0
+      for filename in sb_files:
+        action = filename.replace('50bb_','').replace('.csv','')
+        if action not in sb_matches.keys():
+          sb_matches[action] = 0.0
 
-              print ''
-              print "--------", '[' + convertedinput[0:2] + ' ' + convertedinput[2:4] + ' ' + convertedinput[4:6] + ' ' + convertedinput[6:] + ']', "--------"
-              print ''
-              # get_hand_info(sb_matches, bb_matches)
-              sb_tree(sb_matches)
-              print ''
-              print 'BB:'
-              # bb_tree(bb_matches)
-              print ''
+      bb_matches = match_dataframes(handlist, bb_dict)
+
+      for filename in bb_files:
+        action = filename.replace('50bb_','').replace('.csv','')
+        if action not in bb_matches.keys():
+          bb_matches[action] = 0.0
+
+      if infoRequest == True:
+        get_hand_info(sb_matches, bb_matches)
+        continue
+
+      print ''
+      print "--------", '[' + convertedinput[0:2] + ' ' + convertedinput[2:4] + ' ' + convertedinput[4:6] + ' ' + convertedinput[6:] + ']', "--------"
+      print ''
+      sb_tree(sb_matches)
+      print ''
+      print 'BB:'
+      # bb_tree(bb_matches)
+      print ''
 
 main() 
