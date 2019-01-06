@@ -24,6 +24,7 @@ def get_dataframes(filenames, path):
         action_name = filename.replace('50bb_','').replace('.csv','')
         possible_actions_dict[action_name] = file_df
     
+    print ''
     return possible_actions_dict
 
 def match_dataframes(handlist, df_dict):
@@ -39,7 +40,14 @@ def match_dataframes(handlist, df_dict):
                 break
             else:
                 next
-                 
+    
+    # all_sb = ['SB_FoldBTN', 'SB_Limp', 'SB_LimpFold', 'SB_LimpCall', 'SB_2x', 'SB_2x_Fold3bet', 'SB_2x_Call3bet', 'SB_2x_4bet', 'SB_3x', 'SB_3x_Fold3bet', 'SB_3x_Call3bet', 'SB_3x_4bet']
+
+    # for action in all_sb:
+    #   if action not in match_dict.keys():
+    #     match_dict[action] = 0
+
+    print match_dict
     return match_dict  
 
 def RNG():
@@ -302,12 +310,6 @@ def main():
   # AK74d
   # A654r
 
-  sb_matches = match_dataframes(handlist, sb_dict)
-  bb_matches = match_dataframes(handlist, bb_dict)
-  
-  # print bb_matches
-
-  print "--------", '[' + convertedinput[0:2] + ' ' + convertedinput[2:4] + ' ' + convertedinput[4:6] + ' ' + convertedinput[6:] + ']', "--------"
   # get_hand_info(sb_matches, bb_matches)
 
   while True:
@@ -324,10 +326,26 @@ def main():
               print 'Oops, try again'
           else:
               handlist = get_permutations(convertedinput)
-              match_dict = match_dataframes(handlist,df_dict)
+
+              #create dictionaries of matches and fill in missing matches with 0 freq
+              sb_matches = match_dataframes(handlist, sb_dict)
+
+              for filename in sb_files:
+                action = filename.replace('50bb_','').replace('.csv','')
+                if action not in sb_matches.keys():
+                  sb_matches[action] = 0.0
+
+              bb_matches = match_dataframes(handlist, bb_dict)
+
+              for filename in bb_files:
+                action = filename.replace('50bb_','').replace('.csv','')
+                if action not in bb_matches.keys():
+                  bb_matches[action] = 0.0
+
               print ''
               print "--------", '[' + convertedinput[0:2] + ' ' + convertedinput[2:4] + ' ' + convertedinput[4:6] + ' ' + convertedinput[6:] + ']', "--------"
               print ''
+              # get_hand_info(sb_matches, bb_matches)
               sb_tree(sb_matches)
               print ''
               print 'BB:'
