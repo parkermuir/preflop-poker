@@ -158,7 +158,7 @@ def select_action(possible_actions):
     pass 
 
   # print possible_actions
-  # print selections
+  print selections
   return selections
 
 def get_hand_info(sb_dict, bb_dict):
@@ -222,15 +222,6 @@ def get_hand_info(sb_dict, bb_dict):
 
 
 def first_sb_action(frequencies):
-  print frequencies
-
-  # possible_actions ={
-  #   '2x': frequencies['SB_2x'],
-  #   '3x': frequencies['SB_3x'],
-  #   'Limp': frequencies['SB_Limp'],
-  #   'Fold': frequencies['SB_FoldBTN']
-  # }
-
   possible_actions = OrderedDict([
     ('2x', frequencies['SB_2x']),
     ('3x', frequencies['SB_3x']),
@@ -266,30 +257,34 @@ def sb_after_3x(frequencies):
 
   return select_action(possible_actions)
 
+
+
 def sb_tree(frequencies):
 
   selections = first_sb_action(frequencies)
-  print selections
-  first_action = selections['selected'][0]
-  print first_action
 
-  if first_action == 'Fold':
-    if len(selections['otherwise']) == 0:
-      print 'Fold'
-    else:
-      mixed_strat = ''
-      for tuple in selections['otherwise']:
-        mixed_strat = mixed_strat + tuple[0] + ' ' + tuple[1].stringify()
-        print 'Fold, Otherwise: ' + mixed_strat      
+  selected_action = selections['selected'][0]
+  selected_freq = str(selections['selected'][1])
 
-  elif first_action == 'Limp':
-    print sb_after_limp(frequencies)
-  elif first_action == '2x':
-    print sb_after_2x(frequencies)
-  elif first_action == '3x':
-    print sb_after_3x(frequencies)
+  if len(selections['otherwise']) == 0:
+    print selected_action
+  elif len(selections['otherwise']) == 1:
+    print selected_action + ' ' + selected_freq + '  Otherwise: ' + selections['otherwise'][0][0]
   else:
-    print 'Error'
+    mixed_strat = ''
+    for tuple in selections['otherwise']:
+      mixed_strat = mixed_strat + tuple[0] + ' ' + str(tuple[1])
+
+    print selected_action + ' ' + selected_freq + '  Otherwise: ' + mixed_strat      
+
+  # if first_action == 'Limp':
+  #   print sb_after_limp(frequencies)
+  # elif first_action == '2x':
+  #   print sb_after_2x(frequencies)
+  # elif first_action == '3x':
+  #   print sb_after_3x(frequencies)
+  # else:
+  #   print 'Error'
 
 
 
@@ -308,13 +303,14 @@ def main():
   sb_dict = get_dataframes(sb_files, 'SB/')   
   bb_dict = get_dataframes(bb_files, 'BB/')
 
-  convertedinput = convertinput('AK74d')
+  convertedinput = convertinput('AK65r')
   handlist = get_permutations(convertedinput)
   # AK74d
+  # A654r
 
   sb_matches = match_dataframes(handlist, sb_dict)
   bb_matches = match_dataframes(handlist, bb_dict)
-  # sb_tree(sb_matches)
+  sb_tree(sb_matches)
   # print bb_matches
 
   print "--------", '[' + convertedinput[0:2] + ' ' + convertedinput[2:4] + ' ' + convertedinput[4:6] + ' ' + convertedinput[6:] + ']', "--------"
