@@ -106,7 +106,6 @@ def convertinput(userinput):
 
     return finalhand
 
-
 def get_permutations(myp):
     
     Card1 = myp[0:2]
@@ -120,46 +119,6 @@ def get_permutations(myp):
     handlist = [''.join(i) for i in permutations(cardlist, clength)]
     
     return handlist
-
-def select_action(possible_actions):
-  # select a 'random' action from an action_dict according to their freq
-  # print possible_actions
-  selections = {}
-  selections['otherwise'] = []
-
-  for key in possible_actions:
-    if possible_actions[key] > .99:
-      selections['selected'] = (key, possible_actions[key])
-      break
-    elif possible_actions[key] < .01:
-      del possible_actions[key]
-  
-  if 'selected' not in selections:
-    r = RNG()
-    r = .9
-
-    sum = 0
-    if len(possible_actions) == 1:
-      # if there is only one possiblity, select it      
-      selections['selected'] = list(possible_actions.items())[0]
-    else:
-      # else go through the possiblities and select according to freq
-      # while putting the non-selected into the otherwise list
-      for key in possible_actions:
-        sum = sum + possible_actions[key]
-        # print 'key =', key, 'sum =', sum, 'r =', r
-
-        if r <= sum and 'selected' not in selections:
-          selections['selected'] = (key, possible_actions[key])
-        else:
-          selections['otherwise'].append((key, possible_actions[key]))
-          # add to otherwise
-  else:
-    pass 
-
-  # print possible_actions
-  print selections
-  return selections
 
 def get_hand_info(sb_dict, bb_dict):
   line = '---------------------------'
@@ -220,6 +179,45 @@ def get_hand_info(sb_dict, bb_dict):
   if 'BB_4bet_LRR' in bb_dict.keys():
     print '--BB_4bet_LRR', bb_dict['BB_4bet_LRR']
 
+def select_action(possible_actions):
+  # select a 'random' action from an action_dict according to their freq
+  # print possible_actions
+  selections = {}
+  selections['otherwise'] = []
+
+  for key in possible_actions:
+    if possible_actions[key] > .99:
+      selections['selected'] = (key, possible_actions[key])
+      break
+    elif possible_actions[key] < .01:
+      del possible_actions[key]
+  
+  if 'selected' not in selections:
+    r = RNG()
+    r = .9
+
+    sum = 0
+    if len(possible_actions) == 1:
+      # if there is only one possiblity, select it      
+      selections['selected'] = list(possible_actions.items())[0]
+    else:
+      # else go through the possiblities and select according to freq
+      # while putting the non-selected into the otherwise list
+      for key in possible_actions:
+        sum = sum + possible_actions[key]
+        # print 'key =', key, 'sum =', sum, 'r =', r
+
+        if r <= sum and 'selected' not in selections:
+          selections['selected'] = (key, possible_actions[key])
+        else:
+          selections['otherwise'].append((key, possible_actions[key]))
+          # add to otherwise
+  else:
+    pass 
+
+  # print possible_actions
+  print selections
+  return selections
 
 def first_sb_action(frequencies):
   possible_actions = OrderedDict([
@@ -257,12 +255,7 @@ def sb_after_3x(frequencies):
 
   return select_action(possible_actions)
 
-
-
-def sb_tree(frequencies):
-
-  selections = first_sb_action(frequencies)
-
+def print_from_selections(selections):
   selected_action = selections['selected'][0]
   selected_freq = str(selections['selected'][1])
 
@@ -273,28 +266,31 @@ def sb_tree(frequencies):
   else:
     mixed_strat = ''
     for tuple in selections['otherwise']:
-      mixed_strat = mixed_strat + tuple[0] + ' ' + str(tuple[1])
+      mixed_strat = mixed_strat + tuple[0] + ' ' + str(tuple[1]) + ' '
 
     print selected_action + ' ' + selected_freq + '  Otherwise: ' + mixed_strat      
 
-  # if first_action == 'Limp':
-  #   print sb_after_limp(frequencies)
-  # elif first_action == '2x':
-  #   print sb_after_2x(frequencies)
-  # elif first_action == '3x':
-  #   print sb_after_3x(frequencies)
-  # else:
-  #   print 'Error'
+def sb_tree(frequencies):
+  
+  first_selections = first_sb_action(frequencies)
+  first_action = first_selections['selected'][0]
 
-
-
+  print 'SB:'
+  print_from_selections(first_selections)
+  
+  if first_action == 'Limp':
+    print_from_selections(sb_after_limp(frequencies))
+  elif first_action == '2x':
+    print_from_selections(sb_after_2x(frequencies))
+  elif first_action == '3x':
+    print_from_selections(sb_after_3x(frequencies))
+  else:
+    print 'Error'
 
 # will need to manage for fold3bet/4bet that dont total to 100,
 # based on earlier mix strat
 
 #maybe make an info function with entire tree for hand
-
-
 
 def main():
   sb_files = ['50bb_SB_2x.csv', '50bb_SB_2x_4bet.csv', '50bb_SB_2x_Call3bet.csv', '50bb_SB_2x_Fold3bet.csv','50bb_SB_3x.csv', '50bb_SB_3x_4bet.csv', '50bb_SB_3x_Fold3bet.csv', '50bb_SB_3x_Call3bet.csv', '50bb_SB_FoldBTN.csv', '50bb_SB_Limp.csv', '50bb_SB_LimpCall.csv', '50bb_SB_LimpFold.csv']
@@ -302,43 +298,40 @@ def main():
   
   sb_dict = get_dataframes(sb_files, 'SB/')   
   bb_dict = get_dataframes(bb_files, 'BB/')
-
-  convertedinput = convertinput('AK65r')
-  handlist = get_permutations(convertedinput)
+  
   # AK74d
   # A654r
 
   sb_matches = match_dataframes(handlist, sb_dict)
   bb_matches = match_dataframes(handlist, bb_dict)
-  sb_tree(sb_matches)
+  
   # print bb_matches
 
   print "--------", '[' + convertedinput[0:2] + ' ' + convertedinput[2:4] + ' ' + convertedinput[4:6] + ' ' + convertedinput[6:] + ']', "--------"
-  get_hand_info(sb_matches, bb_matches)
+  # get_hand_info(sb_matches, bb_matches)
 
-    # while True:
-    #    rawinput = raw_input('Input PLO Hand: ').lower()
-    #    if rawinput == 'quit':
-    #         print 'blade runner p: gg'
-    #         print 'blade runner p: m8'
-    #         return
-    #    else:
-    #         convertedinput = convertinput(rawinput) #take raw input and convert it to a searchable plo hand
-            
-    #         if convertedinput == 'not recognized': #error catch
-    #             print ''
-    #             print 'Oops, try again'
-    #         else:
-    #             handlist = get_permutations(convertedinput)
-    #             match_dict = match_dataframes(handlist,df_dict)
-    #             print ''
-    #             print '--------',convertedinput[0:2]+','+convertedinput[2:4]+','+convertedinput[4:6]+','+convertedinput[6:],'--------' 
-    #             print ''
-    #             print'SB:'
-    #             small_blind_new(match_dict)
-    #             print ''
-    #             print 'BB:'
-    #             big_blind_new(match_dict)
-    #             print ''
+  while True:
+      rawinput = raw_input('Input PLO Hand: ').lower()
+      if rawinput == 'quit':
+          print 'blade runner p: gg'
+          print 'blade runner p: m8'
+          return
+      else:
+          convertedinput = convertinput(rawinput) #take raw input and convert it to a searchable plo hand
+          
+          if convertedinput == 'not recognized': #error catch
+              print ''
+              print 'Oops, try again'
+          else:
+              handlist = get_permutations(convertedinput)
+              match_dict = match_dataframes(handlist,df_dict)
+              print ''
+              print "--------", '[' + convertedinput[0:2] + ' ' + convertedinput[2:4] + ' ' + convertedinput[4:6] + ' ' + convertedinput[6:] + ']', "--------"
+              print ''
+              sb_tree(sb_matches)
+              print ''
+              print 'BB:'
+              # bb_tree(bb_matches)
+              print ''
 
 main() 
