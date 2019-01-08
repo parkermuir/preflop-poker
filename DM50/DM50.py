@@ -270,12 +270,10 @@ def sb_tree(frequencies):
   
   if first_action == 'Limp':
     print_from_selections(sb_after_limp(frequencies))
-  elif first_action == '2x':
+  if first_action == '2x':
     print_from_selections(sb_after_2x(frequencies))
-  elif first_action == '3x':
+  if first_action == '3x':
     print_from_selections(sb_after_3x(frequencies))
-  else:
-    print 'Error'
 
 # will need to manage for fold3bet/4bet that dont total to 100,
 # based on earlier mix strat
@@ -304,7 +302,7 @@ def main():
         return
       elif rawinput[0:4] == 'info':
         infoRequest = True
-        convertedinput = convertinput(rawinput[5:9])
+        convertedinput = convertinput(rawinput[5:10])
       else:
         convertedinput = convertinput(rawinput) #take raw input and convert it to a searchable plo hand
 
