@@ -222,7 +222,7 @@ def first_sb_action(frequencies):
 def sb_after_limp(frequencies):
   possible_actions =  OrderedDict([
     ('Fold', frequencies['SB_LimpFold']),
-    ('Call', frequencies['SB_LimpCall']),
+    ('Call vs Raise Limp', frequencies['SB_LimpCall']),
   ])
 
   return select_action(possible_actions)
@@ -247,18 +247,21 @@ def sb_after_3x(frequencies):
 
 def print_from_selections(selections):
   selected_action = selections['selected'][0]
-  selected_freq = str(selections['selected'][1])
+  selected_freq = str(format(selections['selected'][1]*100, '.0f'))
 
   if len(selections['otherwise']) == 0:
     print selected_action
   elif len(selections['otherwise']) == 1:
-    print selected_action + ' ' + selected_freq + '  Otherwise: ' + selections['otherwise'][0][0]
+    print selected_action + ' ' + selected_freq + '%   Otherwise [' + selections['otherwise'][0][0] + ' ' + str(format(selections['otherwise'][0][1]*100, '.0f')) + '%]'
   else:
     mixed_strat = ''
-    for tuple in selections['otherwise']:
-      mixed_strat = mixed_strat + tuple[0] + ' ' + str(tuple[1]) + ' '
+    separator = ', '
+    for i, tuple in enumerate(selections['otherwise']):
+      if i == len(selections['otherwise']) - 1:
+        separator = ''
+      mixed_strat = mixed_strat + tuple[0] + ': ' + str(format(tuple[1]*100, '.0f')) + '%' + separator
 
-    print selected_action + ' ' + selected_freq + '  Otherwise: ' + mixed_strat      
+    print selected_action + ' ' + selected_freq + '%   Otherwise [' + mixed_strat + ']'     
 
 def sb_tree(frequencies):
   
