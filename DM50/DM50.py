@@ -170,6 +170,7 @@ def get_hand_info(sb_dict, bb_dict):
   print line
   print ''
 
+
 def select_action(possible_actions):
   # select a 'random' action from an action_dict according to their freq
   # print possible_actions
@@ -185,7 +186,6 @@ def select_action(possible_actions):
   
   if 'selected' not in selections:
     r = RNG()
-    r = .9
 
     sum = 0
     if len(possible_actions) == 1:
@@ -252,16 +252,16 @@ def print_from_selections(selections):
   if len(selections['otherwise']) == 0:
     print selected_action
   elif len(selections['otherwise']) == 1:
-    print selected_action + ' ' + selected_freq + '%   Otherwise [' + selections['otherwise'][0][0] + ' ' + str(format(selections['otherwise'][0][1]*100, '.0f')) + '%]'
+    print selected_action + ' ' + selected_freq + '%  (' + selections['otherwise'][0][0] + ')'
   else:
     mixed_strat = ''
     separator = ', '
     for i, tuple in enumerate(selections['otherwise']):
       if i == len(selections['otherwise']) - 1:
         separator = ''
-      mixed_strat = mixed_strat + tuple[0] + ': ' + str(format(tuple[1]*100, '.0f')) + '%' + separator
+      mixed_strat = mixed_strat + tuple[0] + ' ' + str(format(tuple[1]*100, '.0f')) + '%' + separator
 
-    print selected_action + ' ' + selected_freq + '%   Otherwise [' + mixed_strat + ']'     
+    print selected_action + ' ' + selected_freq + '%  (' + mixed_strat + ')'    
 
 def sb_tree(frequencies):
   
@@ -332,7 +332,7 @@ def main():
           bb_matches[action] = 0.0
 
       print ''
-      print "--------", '[' + convertedinput[0:2] + ' ' + convertedinput[2:4] + ' ' + convertedinput[4:6] + ' ' + convertedinput[6:] + ']', "--------"
+      print "------", '[' + convertedinput[0:2] + ' ' + convertedinput[2:4] + ' ' + convertedinput[4:6] + ' ' + convertedinput[6:] + ']', "------"
       print ''
 
       if infoRequest == True:
@@ -342,6 +342,7 @@ def main():
         print ''
         print 'BB:'
         # bb_tree(bb_matches)
+        temp_bb_info(bb_matches)
         print ''
 
 main() 
