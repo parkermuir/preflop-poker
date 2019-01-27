@@ -170,6 +170,29 @@ def get_hand_info(sb_dict, bb_dict):
   print line
   print ''
 
+def temp_bb_info(bb_dict):
+  print 'Call vs 2x', str(format(bb_dict['BB_Call_2x']*100, '.0f')) + '%'
+  print 'Fold vs 2x', str(format(bb_dict['BB_Fold_2x']*100, '.0f')) + '%'
+  print ''
+  print 'Call vs 3x', str(format(bb_dict['BB_Call_3x']*100, '.0f')) + '%'
+  print 'Fold vs 3x', str(format(bb_dict['BB_Fold_3x']*100, '.0f')) + '%'
+  print ''
+  print '3Bet 2x', str(format(bb_dict['BB_3Bet_2x']*100, '.0f')) + '%'
+  print '  3Bet vs 2x Call 4bet', str(format(bb_dict['BB_3Bet_2x_Call4bet']*100, '.0f')) + '%'
+  print '  3Bet vs 2x Fold 4bet', str(format(bb_dict['BB_3Bet_2x_Fold4bet']*100, '.0f')) + '%'
+  print '  3Bet vs 2x 5bet', str(format(bb_dict['BB_3Bet_2x_5bet']*100, '.0f')) + '%'
+  print ''
+  print '3Bet vs 3x', str(format(bb_dict['BB_3Bet_3x']*100, '.0f')) + '%'
+  print '  3bet vs 3x Call 4bet', str(format(bb_dict['BB_3bet_3x_Call4bet']*100, '.0f')) + '%'
+  print '  3bet vs 3x Fold 4bet', str(format(bb_dict['BB_3bet_3x_Fold4bet']*100, '.0f')) + '%'
+  print '  3bet vs 3x 5bet', str(format(bb_dict['BB_3bet_3x_5bet']*100, '.0f')) + '%'
+  print ''
+  print 'Check Limp', str(format(bb_dict['BB_CheckLimp']*100, '.0f')) + '%'
+  print 'Raise Limp', str(format(bb_dict['BB_RaiseLimp']*100, '.0f')) + '%'
+  print '  Call vs LRR', str(format(bb_dict['BB_Call_LRR']*100, '.0f')) + '%'
+  print '  Fold vs LRR', str(format(bb_dict['BB_Fold_LRR']*100, '.0f')) + '%'
+  print '  4bet vs LRR', str(format(bb_dict['BB_4bet_LRR']*100, '.0f')) + '%'
+  print ''
 
 def select_action(possible_actions):
   # select a 'random' action from an action_dict according to their freq
