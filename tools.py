@@ -2,7 +2,6 @@ import random
 
 def RNG():
    r = random.randint(1,100)    
-   r = float(r / 100)
    #print 'r=' , r
    return r    
     
@@ -10,18 +9,27 @@ def RNG():
 def main():
   while True:
 
-    rawinput = raw_input('Select function: ').lower()
+    rawinput = raw_input('a/p/g/r: ').lower()
 
     if rawinput == 'quit':
       return
-    elif rawinput == 'r':
-      print RNG()
-    elif rawinput == 'g':
-      print 'run the geo function here'
-    elif rawinput == 'a':
-      print 'run the alpha function here'
-    elif rawinput == 'p':
-      print 'run the pot odds function here'
+    elif rawinput[0:1] == 'r':
+      r = RNG()
+      print r
+      print ''
+    elif rawinput[0:1] == 'g':
+      
+    elif rawinput[0:1] == 'a':
+
+
+    elif rawinput[0:1] == 'p':
+      nums = rawinput.split(' ')
+      bet = float(nums[1])
+      pot = float(nums[2])
+      pot_odds = float(bet / (bet + bet + pot))
+      print 'PotOdds:', str(format(pot_odds*100, '.0f')) + '%'
+      print ''
+
     else:
       print 'Oops, not a recognized option.'
 
