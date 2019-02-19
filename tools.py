@@ -1,21 +1,28 @@
+import random
+
+def RNG():
+   r = random.randint(1,100)    
+   r = float(r / 100)
+   #print 'r=' , r
+   return r    
+    
+
 def main():
   while True:
-    rawinput = raw_input('Input PLO Hand: ').lower()
+
+    rawinput = raw_input('Select function: ').lower()
 
     if rawinput == 'quit':
-      print 'blade runner p: gg'
-      print 'blade runner p: m8'
       return
-    elif rawinput[0:4] == 'info':
-      infoRequest = True
-      convertedinput = convertinput(rawinput[5:10])
+    elif rawinput == 'r':
+      print RNG()
+    elif rawinput == 'g':
+      print 'run the geo function here'
+    elif rawinput == 'a':
+      print 'run the alpha function here'
+    elif rawinput == 'p':
+      print 'run the pot odds function here'
     else:
-      convertedinput = convertinput(rawinput) #take raw input and convert it to a searchable plo hand
+      print 'Oops, not a recognized option.'
 
-    if convertedinput == 'not recognized': #error catch
-      print ''
-      print 'Oops, try again'
-      continue
-
-    
 main()
