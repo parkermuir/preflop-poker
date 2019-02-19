@@ -20,7 +20,12 @@ def main():
     elif rawinput[0:1] == 'g':
       
     elif rawinput[0:1] == 'a':
-
+      nums = rawinput.split(' ')
+      bet = float(nums[1])
+      pot = float(nums[2])
+      pot_odds = float(bet / (bet + pot))
+      print '1-Alpha:', str(format(pot_odds*100, '.0f')) + '%'
+      print ''
 
     elif rawinput[0:1] == 'p':
       nums = rawinput.split(' ')
